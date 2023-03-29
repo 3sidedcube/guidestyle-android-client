@@ -39,7 +39,7 @@ class GuideStyleFragment : BottomSheetFragment(R.layout.fragment_styleguide) {
 		var radioButtonStylesList = listOf<Pair<String, Int>>()
 		var switchButtonStylesList = listOf<Pair<String, Int>>()
 
-		val themes: Array<Field> = Class.forName(context?.packageName + ".R\$style").declaredFields
+		val themes: Array<Field> = R.style::class.java.declaredFields
 		for (theme in themes) {
 			val themeName: String = theme.name
 			val themeId: Int = theme.getInt(null)
@@ -115,7 +115,6 @@ class GuideStyleFragment : BottomSheetFragment(R.layout.fragment_styleguide) {
 					checkboxDisabledContainerView.addView(disabledCheckedCheckbox)
 				}
 			}
-
 			if (radioButtonStylesList.isEmpty()) {
 				radiobuttonContainerView.visibility = View.GONE
 			} else {
@@ -147,7 +146,6 @@ class GuideStyleFragment : BottomSheetFragment(R.layout.fragment_styleguide) {
 					radiobuttonDisabledContainerView.addView(disabledSelectedRadioButton)
 				}
 			}
-
 			if (radioButtonStylesList.isEmpty()) {
 				radiobuttonContainerView.visibility = View.GONE
 			} else {
@@ -184,7 +182,7 @@ class GuideStyleFragment : BottomSheetFragment(R.layout.fragment_styleguide) {
 
 	private fun populateSpacings() {
 		var spacingsList = listOf<Pair<String, Int>>()
-		val dimens: Array<Field> = Class.forName(context?.packageName + ".R\$dimen").declaredFields
+		val dimens: Array<Field> = R.dimen::class.java.declaredFields
 		for (dimen in dimens) {
 			val dimenName: String = dimen.name
 			val dimenId: Int = dimen.getInt(null)
@@ -200,7 +198,7 @@ class GuideStyleFragment : BottomSheetFragment(R.layout.fragment_styleguide) {
 
 	private fun populateColors() {
 		val colorList: HashMap<String, List<Pair<String, Int>>> = hashMapOf()
-		val colors: Array<Field> = Class.forName(context?.packageName + ".R\$color").declaredFields
+		val colors: Array<Field> = R.color::class.java.declaredFields
 		for (color in colors) {
 			val colorName: String = color.name
 			if (!colorName.startsWith("guidestyle", true)) {

@@ -1,0 +1,15 @@
+<resources>
+	<string name="app_name">Guide Style</string>
+	<string name="guidestyle_variant">Variant</string>
+	<string name="guidestyle_dp_text">%d px</string>
+	<string name="guidestyle_by_3sidedcube">GuideStyle by 3SidedCube</string>
+	<string name="guidestyle_colors">Colors</string>
+	<string name="guidestyle_text_styles">Text Styles</string>
+	<string name="guidestyle_layout">Layout</string>
+	<string name="guidestyle_buttons">Buttons</string>
+	<string name="guidestyle_enabled">Enabled</string>
+	<string name="guidestyle_disabled">Disabled</string>
+	<string name="guidestyle_radiobuttons">RadioButtons</string>
+	<string name="guidestyle_checkbox">Checkbox</string>
+	<string name="guidestyle_ui_style_guide">UI Style Guide</string>
+</resources>

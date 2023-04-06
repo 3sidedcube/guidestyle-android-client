@@ -12,4 +12,5 @@
 	<string name="guidestyle_radiobuttons">RadioButtons</string>
 	<string name="guidestyle_checkbox">Checkbox</string>
 	<string name="guidestyle_ui_style_guide">UI Style Guide</string>
+	<string name="guidestyle_textstyle_name">%s: The quick brown fox jumps over the lazy dog</string>
 </resources>

@@ -13,6 +13,7 @@ import com.cube.styleguide.adapter.SpacingAdapter
 import com.cube.styleguide.adapter.TextStylesAdapter
 import com.cube.styleguide.databinding.FragmentStyleguideBinding
 import com.cube.styleguide.fragments.BottomSheetFragment
+import com.cube.styleguide.manager.GuideStyleManager
 import com.cube.styleguide.utils.Extensions.firstPart
 import com.cube.styleguide.utils.ShakeSensorListener
 import java.lang.reflect.Field
@@ -28,6 +29,8 @@ class GuideStyleFragment : BottomSheetFragment(R.layout.fragment_styleguide) {
 		populateSpacings()
 
 		populateStyles()
+
+		populateCustomViews()
 
 		binding?.closeButton?.setOnClickListener { dismiss() }
 	}
@@ -219,6 +222,18 @@ class GuideStyleFragment : BottomSheetFragment(R.layout.fragment_styleguide) {
 			binding?.colorContainerView?.visibility = View.GONE
 		} else {
 			binding?.colorRecyclerView?.adapter = ColorAdapter(colorList)
+		}
+	}
+
+	private fun populateCustomViews() {
+		binding?.customViews?.removeAllViews()
+		if (GuideStyleManager.extraViews.isEmpty()) {
+			binding?.customViewContainer?.visibility = View.GONE
+		} else {
+
+			GuideStyleManager.extraViews.forEach {
+				binding?.customViews?.addView(it)
+			}
 		}
 	}
 

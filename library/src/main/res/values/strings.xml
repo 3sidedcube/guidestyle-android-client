@@ -1,4 +1,5 @@
 <resources>
+	<string name="app_name">Guide Style Library</string>
 	<string name="guidestyle_variant">Variant</string>
 	<string name="guidestyle_dp_text">%d px</string>
 	<string name="guidestyle_by_3sidedcube">GuideStyle by 3SidedCube</string>

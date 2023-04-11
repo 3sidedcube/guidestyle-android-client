@@ -15,7 +15,7 @@
 		style="@style/GuideStyleHeader"
 		android:gravity="center_vertical"
 		android:minHeight="40dp"
-		android:paddingEnd="@dimen/spacing_8"
+		android:paddingEnd="@dimen/guidestyle_medium_spacing"
 		android:paddingStart="46dp"
 		android:paddingVertical="@dimen/guidestyle_small_spacing"
 		app:drawableEndCompat="@drawable/ic_chevron_down"

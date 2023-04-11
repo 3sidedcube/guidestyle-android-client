@@ -1,8 +1,9 @@
-package com.cube.styleguide
+package com.cube.example
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.cube.styleguide.GuideStyleActivity
 
 class MainActivity : AppCompatActivity() {
 	override fun onCreate(savedInstanceState: Bundle?) {

@@ -4,10 +4,6 @@ plugins {
 	id 'maven-publish'
 }
 
-def majorVersion = 1
-def minorVersion = 0
-def patchVersion = 0
-
 android {
 	namespace 'com.cube.styleguide'
 	compileSdk 33

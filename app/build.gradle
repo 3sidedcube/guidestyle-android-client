@@ -8,11 +8,11 @@ def minorVersion = 0
 def patchVersion = 0
 
 android {
-	namespace 'com.cube.styleguide'
+	namespace 'com.cube.example'
 	compileSdk 33
 
 	defaultConfig {
-		applicationId "com.cube.styleguide"
+		applicationId "com.cube.example"
 		minSdk 26
 		targetSdk 33
 		versionCode majorVersion * 10000 + minorVersion * 100 + patchVersion

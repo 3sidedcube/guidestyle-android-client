@@ -1,26 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<style name="GuideStyleBody">
-		<item name="android:textColor">@color/guidestyle_black</item>
-		<item name="android:textSize">10sp</item>
-		<item name="android:textStyle">bold</item>
+	<style name="Heading">
+		<item name="android:textColor">@color/grey_500</item>
 	</style>
 
-	<style name="GuideStyleHeader">
+	<style name="Heading.1">
+		<item name="android:textSize">36sp</item>
+		<item name="lineHeight">40dp</item>
+	</style>
+
+	<style name="Heading.2">
+		<item name="android:textSize">28sp</item>
+		<item name="lineHeight">32dp</item>
+	</style>
+
+	<style name="Heading.3">
 		<item name="android:textSize">20sp</item>
 		<item name="lineHeight">28dp</item>
-		<item name="android:background">@color/guidestyle_black</item>
-		<item name="textAllCaps">true</item>
-		<item name="android:textAlignment">center</item>
-		<item name="android:textColor">@color/guidestyle_white</item>
 	</style>
 
-	<style name="GuideStyleCaption">
-		<item name="android:textColor">@color/guidestyle_white</item>
-		<item name="android:textStyle">bold</item>
-		<item name="android:textSize">10sp</item>
-		<item name="android:background">@color/guidestyle_black</item>
-		<item name="android:paddingVertical">2dp</item>
-		<item name="android:paddingHorizontal">6dp</item>
+	<style name="Heading.4">
+		<item name="android:textSize">24sp</item>
+		<item name="android:lineHeight">32dp</item>
 	</style>
+
+	<style name="Subtitle">
+		<item name="android:textColor">@color/grey_500</item>
+	</style>
+
+	<style name="Subtitle.1">
+		<item name="android:textSize">20sp</item>
+		<item name="android:letterSpacing">0.0125</item>
+		<item name="lineHeight">24dp</item>
+	</style>
+
+	<style name="Subtitle.2">
+		<item name="android:textSize">16sp</item>
+		<item name="android:letterSpacing">0.0125</item>
+		<item name="lineHeight">20dp</item>
+	</style>
+
+	<style name="Body">
+		<item name="android:textColor">@color/grey_500</item>
+		<item name="android:textSize">14sp</item>
+		<item name="android:letterSpacing">0.02</item>
+		<item name="lineHeight">20dp</item>
+	</style>
+
 </resources>

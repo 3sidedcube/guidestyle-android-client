@@ -17,7 +17,7 @@
 		android:minHeight="40dp"
 		android:paddingEnd="@dimen/spacing_8"
 		android:paddingStart="46dp"
-		android:paddingVertical="@dimen/spacing_2"
+		android:paddingVertical="@dimen/guidestyle_small_spacing"
 		app:drawableEndCompat="@drawable/ic_chevron_down"
 		tools:text="@string/guidestyle_colors" />
 

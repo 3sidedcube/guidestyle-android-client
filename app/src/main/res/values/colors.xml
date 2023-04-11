@@ -4,9 +4,39 @@
 	<color name="primary_500">#DFE3EB</color>
 	<color name="primary_700">#3A3939</color>
 
+	<color name="green_500">#2A533E</color>
+	<color name="green_400">#4F9C75</color>
+	<color name="green_300">#69CD9A</color>
+	<color name="green_200">#ADE4C8</color>
+	<color name="green_100">#E2FAEE</color>
 
-	<color name="guidestyle_black">#000000</color>
-	<color name="guidestyle_white">#FFFFFF</color>
-	<color name="guidestyle_pink">#FFDBDB</color>
-	<color name="guidestyle_grey">#F4F4F4</color>
+	<color name="pink_500">#9A4F78</color>
+	<color name="pink_400">#B76893</color>
+	<color name="pink_300">#DB7CAF</color>
+	<color name="pink_200">#F5ABD3</color>
+	<color name="pink_100">#F9D2E7</color>
+
+	<color name="orange_500">#955D04</color>
+	<color name="orange_400">#C07F16</color>
+	<color name="orange_300">#EC9E20</color>
+	<color name="orange_200">#FDCB7B</color>
+	<color name="orange_100">#FFE5BC</color>
+
+	<color name="blue_500">#087799</color>
+	<color name="blue_400">#3EB6DB</color>
+	<color name="blue_300">#41CDF8</color>
+	<color name="blue_200">#ADE7F9</color>
+	<color name="blue_100">#E1F8FF</color>
+
+	<color name="grey_500">#012733</color>
+	<color name="grey_400">#3F4D5E</color>
+	<color name="grey_300">#AEB0BA</color>
+	<color name="grey_200">#DFE3EB</color>
+	<color name="grey_100">#F7FDFF</color>
+	<color name="light_grey_2">#F4F4F4</color>
+
+	<color name="success">#4F9C75</color>
+	<color name="success_variant">#ADE4C8</color>
+	<color name="error">#EF5567</color>
+	<color name="error_variant">#F1CBCF</color>
 </resources>

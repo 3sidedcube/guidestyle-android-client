@@ -1,14 +1,4 @@
 <resources>
-	<dimen name="spacing_2">2dp</dimen>
-	<dimen name="spacing_4">4dp</dimen>
-	<dimen name="spacing_16">16dp</dimen>
-	<dimen name="spacing_20">20dp</dimen>
-	<dimen name="radius_10">10dp</dimen>
-
-
-	<dimen name="radius_300">6dp</dimen>
-	<dimen name="radius_700">10dp</dimen>
-	<dimen name="radius_800">35dp</dimen>
 
 	<!--Margins/Paddings -->
 	<dimen name="spacing_6">6dp</dimen>

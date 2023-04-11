@@ -14,8 +14,8 @@
 		android:layout_height="wrap_content"
 		android:clipChildren="false"
 		android:clipToPadding="false"
-		android:contentInsetEnd="@dimen/spacing_20"
-		android:contentInsetStart="@dimen/spacing_20"
+		android:contentInsetEnd="@dimen/guidestyle_largest_spacing"
+		android:contentInsetStart="@dimen/guidestyle_largest_spacing"
 		android:elevation="5dp">
 
 		<com.google.android.material.imageview.ShapeableImageView
@@ -41,7 +41,7 @@
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
 		android:fillViewport="true"
-		android:paddingBottom="@dimen/spacing_20">
+		android:paddingBottom="@dimen/guidestyle_largest_spacing">
 
 		<LinearLayout
 			android:layout_width="match_parent"
@@ -70,7 +70,7 @@
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:id="@+id/text_container_view"
-				android:layout_marginTop="@dimen/spacing_20"
+				android:layout_marginTop="@dimen/guidestyle_largest_spacing"
 				android:orientation="vertical"
 				app:header="@string/guidestyle_text_styles">
 
@@ -89,7 +89,7 @@
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:id="@+id/layout_container_view"
-				android:layout_marginTop="@dimen/spacing_20"
+				android:layout_marginTop="@dimen/guidestyle_largest_spacing"
 				android:orientation="vertical"
 				app:header="@string/guidestyle_layout">
 
@@ -110,7 +110,7 @@
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:id="@+id/button_container_view"
-				android:layout_marginTop="@dimen/spacing_20"
+				android:layout_marginTop="@dimen/guidestyle_largest_spacing"
 				android:orientation="vertical"
 				app:header="@string/guidestyle_buttons">
 
@@ -127,8 +127,8 @@
 						style="@style/GuideStyleCaption"
 						android:background="@color/guidestyle_black"
 						android:layout_gravity="start"
-						android:layout_marginHorizontal="@dimen/spacing_16"
-						android:layout_marginTop="@dimen/spacing_20"
+						android:layout_marginHorizontal="@dimen/guidestyle_large_spacing"
+						android:layout_marginTop="@dimen/guidestyle_largest_spacing"
 						android:text="@string/guidestyle_enabled" />
 
 					<LinearLayout
@@ -145,8 +145,8 @@
 						style="@style/GuideStyleCaption"
 						android:background="@color/guidestyle_black"
 						android:layout_gravity="start"
-						android:layout_marginHorizontal="@dimen/spacing_16"
-						android:layout_marginTop="@dimen/spacing_20"
+						android:layout_marginHorizontal="@dimen/guidestyle_large_spacing"
+						android:layout_marginTop="@dimen/guidestyle_largest_spacing"
 						android:text="@string/guidestyle_disabled" />
 
 					<LinearLayout
@@ -164,7 +164,7 @@
 				android:layout_width="match_parent"
 				android:layout_height="match_parent"
 				android:id="@+id/radiobutton_container_view"
-				android:layout_marginTop="@dimen/spacing_20"
+				android:layout_marginTop="@dimen/guidestyle_largest_spacing"
 				android:orientation="vertical"
 				app:header="@string/guidestyle_radiobuttons">
 
@@ -180,8 +180,8 @@
 						android:layout_height="wrap_content"
 						style="@style/GuideStyleCaption"
 						android:layout_gravity="start"
-						android:layout_marginHorizontal="@dimen/spacing_16"
-						android:layout_marginTop="@dimen/spacing_20"
+						android:layout_marginHorizontal="@dimen/guidestyle_large_spacing"
+						android:layout_marginTop="@dimen/guidestyle_largest_spacing"
 						android:text="@string/guidestyle_enabled" />
 
 					<LinearLayout
@@ -198,7 +198,7 @@
 						style="@style/GuideStyleCaption"
 						android:background="@color/guidestyle_black"
 						android:layout_gravity="start"
-						android:layout_marginHorizontal="@dimen/spacing_16"
+						android:layout_marginHorizontal="@dimen/guidestyle_large_spacing"
 						android:text="@string/guidestyle_disabled" />
 
 					<LinearLayout
@@ -216,7 +216,7 @@
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:id="@+id/checkbox_container_view"
-				android:layout_marginTop="@dimen/spacing_20"
+				android:layout_marginTop="@dimen/guidestyle_largest_spacing"
 				android:orientation="vertical"
 				app:header="@string/guidestyle_checkbox">
 
@@ -233,8 +233,8 @@
 						style="@style/GuideStyleCaption"
 						android:background="@color/guidestyle_black"
 						android:layout_gravity="start"
-						android:layout_marginHorizontal="@dimen/spacing_16"
-						android:layout_marginTop="@dimen/spacing_20"
+						android:layout_marginHorizontal="@dimen/guidestyle_large_spacing"
+						android:layout_marginTop="@dimen/guidestyle_largest_spacing"
 						android:text="@string/guidestyle_enabled" />
 
 					<LinearLayout
@@ -251,7 +251,7 @@
 						style="@style/GuideStyleCaption"
 						android:background="@color/guidestyle_black"
 						android:layout_gravity="start"
-						android:layout_marginHorizontal="@dimen/spacing_16"
+						android:layout_marginHorizontal="@dimen/guidestyle_large_spacing"
 						android:text="@string/guidestyle_disabled" />
 
 					<LinearLayout
@@ -270,7 +270,7 @@
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:id="@+id/custom_view_container"
-				android:layout_marginTop="@dimen/spacing_20"
+				android:layout_marginTop="@dimen/guidestyle_largest_spacing"
 				android:orientation="vertical"
 				app:header="@string/guidestyle_custom_views">
 

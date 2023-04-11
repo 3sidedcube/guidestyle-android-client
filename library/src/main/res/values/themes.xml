@@ -25,6 +25,4 @@
 	<style name="BottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
 		<item name="android:background">@android:color/transparent</item>
 	</style>
-
-	<dimen name="image_size_50">50dp</dimen>
 </resources>

@@ -13,18 +13,4 @@
 		<item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
 		<!-- Customize your theme here. -->
 	</style>
-
-	<style name="Theme.StyleGuide.NoActionBar">
-		<item name="windowActionBar">false</item>
-		<item name="windowNoTitle">true</item>
-	</style>
-
-	<style name="BottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
-		<item name="bottomSheetStyle">@style/BottomSheetStyle</item>
-	</style>
-	<style name="BottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
-		<item name="android:background">@android:color/transparent</item>
-	</style>
-
-	<dimen name="image_size_50">50dp</dimen>
 </resources>

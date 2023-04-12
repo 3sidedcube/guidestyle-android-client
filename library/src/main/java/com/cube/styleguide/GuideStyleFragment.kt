@@ -239,6 +239,11 @@ class GuideStyleFragment : BottomSheetFragment(R.layout.fragment_styleguide) {
 
 	override fun onDestroyView() {
 		super.onDestroyView()
+		/**
+		 * Move sure to remove the custom views, cos otherwise you need to create new views everytime due to the parent of the view being the previous instance of the Fragment
+		 * This is not an issue for the rest of the views cos they get recreated everytime. While custom views remain in the [GuideStyleManager]
+ 		 */
+		binding?.customViews?.removeAllViews()
 		binding = null
 	}
 

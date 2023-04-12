@@ -37,9 +37,21 @@
 
 	</Toolbar>
 
+	<TextView
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/error_message"
+		style="@style/GuideStyleHeader"
+		android:background="@color/guidestyle_pink"
+		android:layout_marginBottom="@dimen/guidestyle_largest_spacing"
+		android:text="@string/guidestyle_failed_to_load_the_package"
+		android:textColor="@color/guidestyle_black"
+		android:visibility="gone" />
+
 	<androidx.core.widget.NestedScrollView
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
+		android:id="@+id/nested_scroll_view"
 		android:fillViewport="true"
 		android:paddingBottom="@dimen/guidestyle_largest_spacing">
 
@@ -278,8 +290,8 @@
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:id="@+id/custom_views"
-					android:orientation="vertical"
 					android:layout_marginHorizontal="@dimen/guidestyle_xlarge_spacing"
+					android:orientation="vertical"
 					android:visibility="gone">
 				</LinearLayout>
 			</com.cube.styleguide.views.ExpandableView>

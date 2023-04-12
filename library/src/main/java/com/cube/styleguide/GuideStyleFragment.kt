@@ -24,25 +24,59 @@ class GuideStyleFragment : BottomSheetFragment(R.layout.fragment_styleguide) {
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		binding = FragmentStyleguideBinding.bind(view)
 
-		populateColors()
+		val packageName = getPackageName()
+		if (packageName.isEmpty()) {
+			binding?.apply {
+				nestedScrollView.visibility = View.GONE
+				errorMessage.text = getString(R.string.guidestyle_failed_to_load_the_package, context?.packageName!!)
+				errorMessage.visibility = View.VISIBLE
+			}
+		} else {
 
-		populateSpacings()
+			populateColors(packageName)
 
-		populateStyles()
+			populateSpacings(packageName)
+
+			populateStyles(packageName)
+		}
 
 		populateCustomViews()
 
 		binding?.closeButton?.setOnClickListener { dismiss() }
 	}
 
-	private fun populateStyles() {
+	/**
+	 * Tries to recover the package name of the app.
+	 * In case the app has multiple flavours but they do not have different res(colors,dimens, style) it will fall back on the main flavour (aka production flavour)
+	 *
+	 * @return package name or empty string
+	 */
+	private fun getPackageName(): String {
+		val packageName = context?.packageName!!
+		try {
+			Class.forName("$packageName.R\$style").declaredFields
+		} catch (cne: ClassNotFoundException) {
+			return if (packageName.endsWith(".staging", true)) {
+				packageName.replace(".staging", "")
+			} else if (packageName.endsWith(".test", true)) {
+				packageName.replace(".test", "")
+			} else if (packageName.endsWith(".dev", true)) {
+				packageName.replace(".dev", "")
+			} else {
+				""
+			}
+		}
+		return packageName
+	}
+
+	private fun populateStyles(packageName: String) {
 		var buttonStylesList = listOf<Pair<String, Int>>()
 		var textStylesList = listOf<Pair<String, Int>>()
 		var checkBoxStylesList = listOf<Pair<String, Int>>()
 		var radioButtonStylesList = listOf<Pair<String, Int>>()
 		var switchButtonStylesList = listOf<Pair<String, Int>>()
 
-		val themes: Array<Field> = Class.forName(context?.packageName + ".R\$style").declaredFields
+		val themes: Array<Field> = Class.forName("$packageName.R\$style").declaredFields
 		for (theme in themes) {
 			val themeName: String = theme.name
 			val themeId: Int = theme.getInt(null)
@@ -183,9 +217,9 @@ class GuideStyleFragment : BottomSheetFragment(R.layout.fragment_styleguide) {
 		}
 	}
 
-	private fun populateSpacings() {
+	private fun populateSpacings(packageName: String) {
 		var spacingsList = listOf<Pair<String, Int>>()
-		val dimens: Array<Field> = Class.forName(context?.packageName + ".R\$dimen").declaredFields
+		val dimens: Array<Field> = Class.forName("$packageName.R\$dimen").declaredFields
 		for (dimen in dimens) {
 			val dimenName: String = dimen.name
 			val dimenId: Int = dimen.getInt(null)
@@ -199,9 +233,9 @@ class GuideStyleFragment : BottomSheetFragment(R.layout.fragment_styleguide) {
 		}
 	}
 
-	private fun populateColors() {
+	private fun populateColors(packageName: String) {
 		val colorList: HashMap<String, List<Pair<String, Int>>> = hashMapOf()
-		val colors: Array<Field> = Class.forName(context?.packageName + ".R\$color").declaredFields
+		val colors: Array<Field> = Class.forName("$packageName.R\$color").declaredFields
 		for (color in colors) {
 			val colorName: String = color.name
 			if (!colorName.startsWith("guidestyle", true)) {
@@ -242,7 +276,7 @@ class GuideStyleFragment : BottomSheetFragment(R.layout.fragment_styleguide) {
 		/**
 		 * Move sure to remove the custom views, cos otherwise you need to create new views everytime due to the parent of the view being the previous instance of the Fragment
 		 * This is not an issue for the rest of the views cos they get recreated everytime. While custom views remain in the [GuideStyleManager]
- 		 */
+		 */
 		binding?.customViews?.removeAllViews()
 		binding = null
 	}

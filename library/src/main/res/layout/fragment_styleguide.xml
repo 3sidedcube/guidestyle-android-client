@@ -37,6 +37,7 @@
 
 	</Toolbar>
 
+	<!--	Error report header-->
 	<TextView
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
@@ -112,7 +113,6 @@
 					android:layout_marginHorizontal="@dimen/guidestyle_large_spacing"
 					android:layout_marginVertical="@dimen/guidestyle_xlarge_spacing"
 					android:nestedScrollingEnabled="true"
-					android:visibility="gone"
 					app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
 					app:spanCount="4" />
 			</com.cube.styleguide.views.ExpandableView>
@@ -130,8 +130,7 @@
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:id="@+id/buttons_container"
-					android:orientation="vertical"
-					android:visibility="gone">
+					android:orientation="vertical">
 
 					<TextView
 						android:layout_width="wrap_content"
@@ -236,8 +235,7 @@
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:id="@+id/checkbox_container"
-					android:orientation="vertical"
-					android:visibility="gone">
+					android:orientation="vertical">
 
 					<TextView
 						android:layout_width="wrap_content"
@@ -277,7 +275,59 @@
 
 			</com.cube.styleguide.views.ExpandableView>
 
-			<!--		CheckBox List-->
+			<!--		SwitchButtons list-->
+			<com.cube.styleguide.views.ExpandableView
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:id="@+id/switch_container_view"
+				android:layout_marginTop="@dimen/guidestyle_largest_spacing"
+				android:orientation="vertical"
+				app:header="@string/guidestyle_switch">
+
+				<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:id="@+id/switch_container"
+					android:orientation="vertical"
+					android:visibility="gone">
+
+					<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						style="@style/GuideStyleCaption"
+						android:layout_gravity="start"
+						android:layout_marginHorizontal="@dimen/guidestyle_large_spacing"
+						android:layout_marginTop="@dimen/guidestyle_largest_spacing"
+						android:text="@string/guidestyle_enabled" />
+
+					<LinearLayout
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:id="@+id/switch_enabled_container_view"
+						android:layout_marginVertical="@dimen/guidestyle_xlarge_spacing"
+						android:orientation="vertical"
+						android:paddingHorizontal="@dimen/guidestyle_large_spacing" />
+
+					<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						style="@style/GuideStyleCaption"
+						android:background="@color/guidestyle_black"
+						android:layout_gravity="start"
+						android:layout_marginHorizontal="@dimen/guidestyle_large_spacing"
+						android:text="@string/guidestyle_disabled" />
+
+					<LinearLayout
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:id="@+id/switch_disabled_container_view"
+						android:layout_marginVertical="@dimen/guidestyle_xlarge_spacing"
+						android:orientation="vertical"
+						android:paddingHorizontal="@dimen/guidestyle_large_spacing" />
+				</LinearLayout>
+			</com.cube.styleguide.views.ExpandableView>
+
+			<!--		Custom View List-->
 			<com.cube.styleguide.views.ExpandableView
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
@@ -291,8 +341,7 @@
 					android:layout_height="wrap_content"
 					android:id="@+id/custom_views"
 					android:layout_marginHorizontal="@dimen/guidestyle_xlarge_spacing"
-					android:orientation="vertical"
-					android:visibility="gone">
+					android:orientation="vertical">
 				</LinearLayout>
 			</com.cube.styleguide.views.ExpandableView>
 		</LinearLayout>

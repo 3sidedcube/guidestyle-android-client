@@ -15,4 +15,5 @@
 	<string name="guidestyle_textstyle_name">%s: The quick brown fox jumps over the lazy dog</string>
 	<string name="guidestyle_custom_views">Custom Views</string>
 	<string name="guidestyle_failed_to_load_the_package">Failed to load the package: %s</string>
+	<string name="guidestyle_switch">Switch Buttons</string>
 </resources>

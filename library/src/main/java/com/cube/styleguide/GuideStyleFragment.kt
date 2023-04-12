@@ -8,6 +8,7 @@ import androidx.appcompat.view.ContextThemeWrapper
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatCheckBox
 import androidx.appcompat.widget.AppCompatRadioButton
+import androidx.appcompat.widget.SwitchCompat
 import com.cube.styleguide.adapter.ColorAdapter
 import com.cube.styleguide.adapter.SpacingAdapter
 import com.cube.styleguide.adapter.TextStylesAdapter
@@ -123,7 +124,7 @@ class GuideStyleFragment : BottomSheetFragment(R.layout.fragment_styleguide) {
 			if (checkBoxStylesList.isEmpty()) {
 				checkboxContainerView.visibility = View.GONE
 			} else {
-				checkboxContainerView.removeAllViews()
+				checkboxEnabledContainerView.removeAllViews()
 				checkboxDisabledContainerView.removeAllViews()
 				checkBoxStylesList.forEach {
 					val checkbox = AppCompatCheckBox(ContextThemeWrapper(requireContext(), it.second), null, it.second)
@@ -183,35 +184,35 @@ class GuideStyleFragment : BottomSheetFragment(R.layout.fragment_styleguide) {
 					radiobuttonDisabledContainerView.addView(disabledSelectedRadioButton)
 				}
 			}
-			if (radioButtonStylesList.isEmpty()) {
-				radiobuttonContainerView.visibility = View.GONE
+			if (switchButtonStylesList.isEmpty()) {
+				switchContainerView.visibility = View.GONE
 			} else {
-				radiobuttonEnabledContainerView.removeAllViews()
-				radiobuttonDisabledContainerView.removeAllViews()
-				radioButtonStylesList.forEach {
-					val radioButton = AppCompatRadioButton(ContextThemeWrapper(requireContext(), it.second), null, it.second)
-					radioButton.text = it.first
-					radioButton.isClickable = true
-					radioButton.layoutParams = params
-					val disabledRadioButton = AppCompatCheckBox(ContextThemeWrapper(requireContext(), it.second), null, it.second)
-					disabledRadioButton.isEnabled = false
-					disabledRadioButton.text = it.first
-					disabledRadioButton.layoutParams = params
+				switchEnabledContainerView.removeAllViews()
+				switchDisabledContainerView.removeAllViews()
+				switchButtonStylesList.forEach {
+					val switch = SwitchCompat(ContextThemeWrapper(requireContext(), it.second), null, it.second)
+					switch.text = it.first
+					switch.isClickable = true
+					switch.layoutParams = params
+					val disabledSwitch = SwitchCompat(ContextThemeWrapper(requireContext(), it.second), null, it.second)
+					disabledSwitch.isEnabled = false
+					disabledSwitch.text = it.first
+					disabledSwitch.layoutParams = params
 
-					val radioSelectedButton = AppCompatRadioButton(ContextThemeWrapper(requireContext(), it.second), null, it.second)
-					radioSelectedButton.text = it.first
-					radioSelectedButton.isClickable = true
-					radioSelectedButton.isChecked = true
-					radioSelectedButton.layoutParams = params
-					val disabledSelectedRadioButton = AppCompatCheckBox(ContextThemeWrapper(requireContext(), it.second), null, it.second)
-					disabledSelectedRadioButton.isEnabled = false
-					disabledSelectedRadioButton.isChecked = true
-					disabledSelectedRadioButton.text = it.first
-					disabledSelectedRadioButton.layoutParams = params
-					radiobuttonEnabledContainerView.addView(radioButton)
-					radiobuttonEnabledContainerView.addView(radioSelectedButton)
-					radiobuttonDisabledContainerView.addView(disabledRadioButton)
-					radiobuttonDisabledContainerView.addView(disabledSelectedRadioButton)
+					val switchSelectedButton = SwitchCompat(ContextThemeWrapper(requireContext(), it.second), null, it.second)
+					switchSelectedButton.text = it.first
+					switchSelectedButton.isClickable = true
+					switchSelectedButton.isChecked = true
+					switchSelectedButton.layoutParams = params
+					val disabledSelectedSwitch = SwitchCompat(ContextThemeWrapper(requireContext(), it.second), null, it.second)
+					disabledSelectedSwitch.isEnabled = false
+					disabledSelectedSwitch.isChecked = true
+					disabledSelectedSwitch.text = it.first
+					disabledSelectedSwitch.layoutParams = params
+					switchEnabledContainerView.addView(switch)
+					switchEnabledContainerView.addView(switchSelectedButton)
+					switchDisabledContainerView.addView(disabledSwitch)
+					switchDisabledContainerView.addView(disabledSelectedSwitch)
 				}
 			}
 		}

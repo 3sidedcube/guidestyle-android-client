@@ -10,5 +10,5 @@
 	<dimen name="guidestyle_radius_large">10dp</dimen>
 	<dimen name="guidestyle_radius_largest">35dp</dimen>
 
-	<dimen name="image_size_50">50dp</dimen>
+	<dimen name="guidestyle_image_size_50">50dp</dimen>
 </resources>

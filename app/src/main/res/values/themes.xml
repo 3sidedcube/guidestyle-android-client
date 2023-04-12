@@ -2,12 +2,12 @@
 	<!-- Base application theme. -->
 	<style name="Theme.StyleGuide" parent="Theme.AppCompat.Light.NoActionBar">
 		<!-- Primary brand color. -->
-		<item name="colorPrimary">@color/primary_500</item>
-		<item name="colorPrimaryVariant">@color/primary_700</item>
+		<item name="colorPrimary">@color/guidestyle_primary_500</item>
+		<item name="colorPrimaryVariant">@color/guidestyle_primary_700</item>
 		<item name="colorOnPrimary">@color/guidestyle_white</item>
 		<!-- Secondary brand color. -->
-		<item name="colorSecondary">@color/primary_500</item>
-		<item name="colorSecondaryVariant">@color/primary_500</item>
+		<item name="colorSecondary">@color/guidestyle_primary_500</item>
+		<item name="colorSecondaryVariant">@color/guidestyle_primary_500</item>
 		<item name="colorOnSecondary">@color/guidestyle_black</item>
 		<!-- Status bar color. -->
 		<item name="android:statusBarColor">?attr/colorPrimaryVariant</item>

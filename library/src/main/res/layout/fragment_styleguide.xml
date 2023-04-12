@@ -31,7 +31,7 @@
 			android:layout_height="wrap_content"
 			android:layout_gravity="center_horizontal"
 			android:text="@string/guidestyle_ui_style_guide"
-			android:textColor="@color/primary_200"
+			android:textColor="@color/guidestyle_primary_200"
 			android:textSize="24sp"
 			android:textStyle="bold" />
 

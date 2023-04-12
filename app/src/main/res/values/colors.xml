@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<color name="primary_200">#3F4D5E</color>
-	<color name="primary_500">#DFE3EB</color>
-	<color name="primary_700">#3A3939</color>
+	<color name="guidestyle_primary_200">#3F4D5E</color>
+	<color name="guidestyle_primary_500">#DFE3EB</color>
+	<color name="guidestyle_primary_700">#3A3939</color>
 
 	<color name="green_500">#2A533E</color>
 	<color name="green_400">#4F9C75</color>

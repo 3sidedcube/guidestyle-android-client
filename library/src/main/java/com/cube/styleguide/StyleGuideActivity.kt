@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.cube.styleguide.databinding.ActivityGuidestyleBinding
 
-class GuideStyleActivity : AppCompatActivity() {
+class StyleGuideActivity : AppCompatActivity() {
 
 	private lateinit var binding: ActivityGuidestyleBinding
 

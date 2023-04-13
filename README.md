@@ -1,5 +1,11 @@
 # Style Guide library
 
+
+https://user-images.githubusercontent.com/4551077/231733266-e705ead8-c94c-4be5-9f77-f315de78177d.mp4
+
+
+
+
 ## What is the Style Guide lib? 
 The StyleGuide lib is a designer tool that 3SidedCube has created in order to make sure that all the UI components match the designs before we implement all the screens. Designers and developers can verify that by reviewing all the colors, dimens, styles and the basic views (Buttons, RadioButtons, Switches, CheckBoxes) 
 

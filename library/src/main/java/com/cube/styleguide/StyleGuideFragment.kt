@@ -2,7 +2,9 @@ package com.cube.styleguide
 
 import android.content.DialogInterface
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.appcompat.view.ContextThemeWrapper
 import androidx.appcompat.widget.AppCompatButton
@@ -12,19 +14,22 @@ import androidx.appcompat.widget.SwitchCompat
 import com.cube.styleguide.adapter.ColorAdapter
 import com.cube.styleguide.adapter.SpacingAdapter
 import com.cube.styleguide.adapter.TextStylesAdapter
-import com.cube.styleguide.databinding.FragmentStyleguideBinding
+import com.cube.styleguide.databinding.FragmentStyleGuideBinding
 import com.cube.styleguide.fragments.BottomSheetFragment
-import com.cube.styleguide.manager.GuideStyleManager
 import com.cube.styleguide.utils.Extensions.firstPart
 import com.cube.styleguide.utils.ShakeSensorListener
 import java.lang.reflect.Field
 
-class GuideStyleFragment : BottomSheetFragment(R.layout.fragment_styleguide) {
-	private var binding: FragmentStyleguideBinding? = null
+open class StyleGuideFragment : BottomSheetFragment(R.layout.fragment_style_guide) {
+	private var binding: FragmentStyleGuideBinding? = null
+
+	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+		binding = FragmentStyleGuideBinding.inflate(inflater, container, false)
+		binding?.closeButton?.setOnClickListener { dismiss() }
+		return binding?.root
+	}
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-		binding = FragmentStyleguideBinding.bind(view)
-
 		val packageName = getPackageName()
 		if (packageName.isEmpty()) {
 			binding?.apply {
@@ -40,10 +45,6 @@ class GuideStyleFragment : BottomSheetFragment(R.layout.fragment_styleguide) {
 
 			populateStyles(packageName)
 		}
-
-		populateCustomViews()
-
-		binding?.closeButton?.setOnClickListener { dismiss() }
 	}
 
 	/**
@@ -101,11 +102,13 @@ class GuideStyleFragment : BottomSheetFragment(R.layout.fragment_styleguide) {
 			if (textStylesList.isEmpty()) {
 				textContainerView.visibility = View.GONE
 			} else {
+				textContainerView.visibility = View.VISIBLE
 				textRecyclerView.adapter = TextStylesAdapter(textStylesList)
 			}
 			if (buttonStylesList.isEmpty()) {
 				buttonContainerView.visibility = View.GONE
 			} else {
+				buttonContainerView.visibility = View.VISIBLE
 				buttonEnabledContainerView.removeAllViews()
 				buttonDisabledContainerView.removeAllViews()
 				buttonStylesList.forEach {
@@ -124,6 +127,7 @@ class GuideStyleFragment : BottomSheetFragment(R.layout.fragment_styleguide) {
 			if (checkBoxStylesList.isEmpty()) {
 				checkboxContainerView.visibility = View.GONE
 			} else {
+				checkboxContainerView.visibility = View.VISIBLE
 				checkboxEnabledContainerView.removeAllViews()
 				checkboxDisabledContainerView.removeAllViews()
 				checkBoxStylesList.forEach {
@@ -156,6 +160,7 @@ class GuideStyleFragment : BottomSheetFragment(R.layout.fragment_styleguide) {
 			if (radioButtonStylesList.isEmpty()) {
 				radiobuttonContainerView.visibility = View.GONE
 			} else {
+				radiobuttonContainerView.visibility = View.VISIBLE
 				radiobuttonEnabledContainerView.removeAllViews()
 				radiobuttonDisabledContainerView.removeAllViews()
 				radioButtonStylesList.forEach {
@@ -187,6 +192,7 @@ class GuideStyleFragment : BottomSheetFragment(R.layout.fragment_styleguide) {
 			if (switchButtonStylesList.isEmpty()) {
 				switchContainerView.visibility = View.GONE
 			} else {
+				switchContainerView.visibility = View.VISIBLE
 				switchEnabledContainerView.removeAllViews()
 				switchDisabledContainerView.removeAllViews()
 				switchButtonStylesList.forEach {
@@ -226,11 +232,13 @@ class GuideStyleFragment : BottomSheetFragment(R.layout.fragment_styleguide) {
 			val dimenId: Int = dimen.getInt(null)
 			spacingsList = spacingsList.plus(Pair(dimenName, dimenId))
 		}
-
-		if (spacingsList.isEmpty()) {
-			binding?.layoutContainerView?.visibility = View.GONE
-		} else {
-			binding?.layoutRecyclerView?.adapter = SpacingAdapter(spacingsList)
+		binding?.apply {
+			if (spacingsList.isEmpty()) {
+				layoutContainerView.visibility = View.GONE
+			} else {
+				layoutContainerView.visibility = View.VISIBLE
+				layoutRecyclerView.adapter = SpacingAdapter(spacingsList)
+			}
 		}
 	}
 
@@ -252,24 +260,22 @@ class GuideStyleFragment : BottomSheetFragment(R.layout.fragment_styleguide) {
 				}
 			}
 		}
-
-		if (colorList.isEmpty()) {
-			binding?.colorContainerView?.visibility = View.GONE
-		} else {
-			binding?.colorRecyclerView?.adapter = ColorAdapter(colorList)
+		binding?.apply {
+			if (colorList.isEmpty()) {
+				colorContainerView.visibility = View.GONE
+			} else {
+				colorContainerView.visibility = View.VISIBLE
+				binding?.colorRecyclerView?.adapter = ColorAdapter(colorList)
+			}
 		}
 	}
 
-	private fun populateCustomViews() {
-		binding?.customViews?.removeAllViews()
-		if (GuideStyleManager.extraViews.isEmpty()) {
-			binding?.customViewContainer?.visibility = View.GONE
-		} else {
-
-			GuideStyleManager.extraViews.forEach {
-				binding?.customViews?.addView(it)
-			}
-		}
+	/**
+	 * Override the onViewCreated and call this function in order to add you custom views
+	 */
+	fun addCustomView(view: View) {
+		binding?.customViews?.addView(view)
+		binding?.customViewContainer?.visibility = View.VISIBLE
 	}
 
 	override fun onDestroyView() {

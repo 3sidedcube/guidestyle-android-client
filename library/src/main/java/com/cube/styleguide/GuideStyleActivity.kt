@@ -14,6 +14,6 @@ class GuideStyleActivity : AppCompatActivity() {
 		binding = ActivityGuidestyleBinding.inflate(layoutInflater)
 		setContentView(binding.root)
 
-		GuideStyleFragment().show(supportFragmentManager, GuideStyleFragment::class.java.name)
+		StyleGuideFragment().show(supportFragmentManager, StyleGuideFragment::class.java.name)
 	}
 }

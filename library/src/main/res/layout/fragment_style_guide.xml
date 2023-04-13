@@ -61,14 +61,16 @@
 			android:layout_height="match_parent"
 			android:id="@+id/guidestyle_container"
 			android:orientation="vertical"
-			tools:context=".GuideStyleFragment">
+			tools:context=".StyleGuideFragment">
 			<!--		Colors RecyclerView-->
 			<com.cube.styleguide.views.ExpandableView
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:id="@+id/color_container_view"
 				android:orientation="vertical"
-				app:header="@string/guidestyle_colors">
+				android:visibility="gone"
+				app:header="@string/guidestyle_colors"
+				tools:visibility="visible">
 
 				<androidx.recyclerview.widget.RecyclerView
 					android:layout_width="match_parent"
@@ -85,7 +87,9 @@
 				android:id="@+id/text_container_view"
 				android:layout_marginTop="@dimen/guidestyle_largest_spacing"
 				android:orientation="vertical"
-				app:header="@string/guidestyle_text_styles">
+				android:visibility="gone"
+				app:header="@string/guidestyle_text_styles"
+				tools:visibility="visible">
 
 				<androidx.recyclerview.widget.RecyclerView
 					android:layout_width="match_parent"
@@ -104,7 +108,9 @@
 				android:id="@+id/layout_container_view"
 				android:layout_marginTop="@dimen/guidestyle_largest_spacing"
 				android:orientation="vertical"
-				app:header="@string/guidestyle_layout">
+				android:visibility="gone"
+				app:header="@string/guidestyle_layout"
+				tools:visibility="visible">
 
 				<androidx.recyclerview.widget.RecyclerView
 					android:layout_width="match_parent"
@@ -124,7 +130,9 @@
 				android:id="@+id/button_container_view"
 				android:layout_marginTop="@dimen/guidestyle_largest_spacing"
 				android:orientation="vertical"
-				app:header="@string/guidestyle_buttons">
+				android:visibility="gone"
+				app:header="@string/guidestyle_buttons"
+				tools:visibility="visible">
 
 				<LinearLayout
 					android:layout_width="match_parent"
@@ -177,7 +185,9 @@
 				android:id="@+id/radiobutton_container_view"
 				android:layout_marginTop="@dimen/guidestyle_largest_spacing"
 				android:orientation="vertical"
-				app:header="@string/guidestyle_radiobuttons">
+				android:visibility="gone"
+				app:header="@string/guidestyle_radiobuttons"
+				tools:visibility="visible">
 
 				<LinearLayout
 					android:layout_width="match_parent"
@@ -229,7 +239,9 @@
 				android:id="@+id/checkbox_container_view"
 				android:layout_marginTop="@dimen/guidestyle_largest_spacing"
 				android:orientation="vertical"
-				app:header="@string/guidestyle_checkbox">
+				android:visibility="gone"
+				app:header="@string/guidestyle_checkbox"
+				tools:visibility="visible">
 
 				<LinearLayout
 					android:layout_width="match_parent"
@@ -282,7 +294,9 @@
 				android:id="@+id/switch_container_view"
 				android:layout_marginTop="@dimen/guidestyle_largest_spacing"
 				android:orientation="vertical"
-				app:header="@string/guidestyle_switch">
+				android:visibility="gone"
+				app:header="@string/guidestyle_switch"
+				tools:visibility="visible">
 
 				<LinearLayout
 					android:layout_width="match_parent"
@@ -334,7 +348,9 @@
 				android:id="@+id/custom_view_container"
 				android:layout_marginTop="@dimen/guidestyle_largest_spacing"
 				android:orientation="vertical"
-				app:header="@string/guidestyle_custom_views">
+				android:visibility="gone"
+				app:header="@string/guidestyle_custom_views"
+				tools:visibility="visible">
 
 				<LinearLayout
 					android:layout_width="match_parent"

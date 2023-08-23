@@ -74,7 +74,7 @@ allprojects {
   ```
 Add the following dependency to the app gradle file:
   ```
-  implementation 'com.github.3sidedcube:guidestyle-android-client:0.1.0'
+  implementation 'com.github.3sidedcube:guidestyle-android-client:v0.2.0'
   ```
 
 ## License

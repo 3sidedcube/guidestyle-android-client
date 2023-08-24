@@ -208,9 +208,9 @@ open class StyleGuideFragment : BottomSheetFragment(R.layout.fragment_style_guid
 
                     stylesList.forEach {
                         val (button, disabledButton) = if (usesMaterialComponents) {
-                            Pair(MaterialButton(ContextThemeWrapper(requireContext(), it.second), null, it.second), MaterialButton(ContextThemeWrapper(requireContext(), it.second), null, it.second))
+                            Pair(MaterialButton(ContextThemeWrapper(requireContext(), it.second)), MaterialButton(ContextThemeWrapper(requireContext(), it.second)))
                         } else {
-                            Pair(AppCompatButton(ContextThemeWrapper(requireContext(), it.second), null, it.second), AppCompatButton(ContextThemeWrapper(requireContext(), it.second), null, it.second))
+                            Pair(AppCompatButton(ContextThemeWrapper(requireContext(), it.second)), AppCompatButton(ContextThemeWrapper(requireContext(), it.second)))
                         }
 
                         button.text = it.first
@@ -243,9 +243,9 @@ open class StyleGuideFragment : BottomSheetFragment(R.layout.fragment_style_guid
                     stylesList.forEach { style ->
                         val (checkboxChecked, checkboxNotChecked, checkboxCheckedDisabled, checkboxNotCheckedDisabled) = List(4) {
                             if (usesMaterialComponents) {
-                                MaterialCheckBox(ContextThemeWrapper(requireContext(), style.second), null, style.second)
+                                MaterialCheckBox(ContextThemeWrapper(requireContext(), style.second))
                             } else {
-                                AppCompatCheckBox(ContextThemeWrapper(requireContext(), style.second), null, style.second)
+                                AppCompatCheckBox(ContextThemeWrapper(requireContext(), style.second))
                             }
                         }.onEach {
                             it.text = style.first
@@ -274,9 +274,9 @@ open class StyleGuideFragment : BottomSheetFragment(R.layout.fragment_style_guid
                     stylesList.forEach { style ->
                         val (radioButtonChecked, radioButtonNotChecked, radioButtonCheckedDisabled, radioButtonNotCheckedDisabled) = List(4) {
                             if (usesMaterialComponents) {
-                                MaterialRadioButton(ContextThemeWrapper(requireContext(), style.second), null, style.second)
+                                MaterialRadioButton(ContextThemeWrapper(requireContext(), style.second))
                             } else {
-                                AppCompatRadioButton(ContextThemeWrapper(requireContext(), style.second), null, style.second)
+                                AppCompatRadioButton(ContextThemeWrapper(requireContext(), style.second))
                             }
                         }.onEach {
                             it.layoutParams = params
@@ -305,9 +305,9 @@ open class StyleGuideFragment : BottomSheetFragment(R.layout.fragment_style_guid
                     stylesList.forEach { style ->
                         val (switchChecked, switchNotChecked, switchCheckedDisabled, switchNotCheckedDisabled) = List(4) {
                             if (usesMaterialComponents) {
-                                MaterialSwitch(ContextThemeWrapper(requireContext(), style.second), null, style.second)
+                                MaterialSwitch(ContextThemeWrapper(requireContext(), style.second))
                             } else {
-                                SwitchCompat(ContextThemeWrapper(requireContext(), style.second), null, style.second)
+                                SwitchCompat(ContextThemeWrapper(requireContext(), style.second))
                             }
                         }.onEach {
                             it.layoutParams = params

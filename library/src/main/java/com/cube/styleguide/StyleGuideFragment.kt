@@ -76,7 +76,13 @@ open class StyleGuideFragment : BottomSheetFragment(R.layout.fragment_style_guid
         return packageName
     }
 
-    open fun populateButtonStyles(
+    /**
+     * Call this function to populate the style guide with your button styles, and to choose the component type.
+     * @param themes A list of styles these can be retrieved using Class.forName("$packageName.R\$style").declaredFields.
+     * @param prefixesList A list of prefixes used in your styles, by default this is a list of commonly used prefixes.
+     * @param usesMaterialComponents Identifies whether styles for this component should be applied to a materialComponent or an appCompatComponent.
+     */
+    fun populateButtonStyles(
         themes: Array<Field>,
         prefixesList: List<String> = listOf("Button", "button"),
         usesMaterialComponents: Boolean = false
@@ -89,10 +95,15 @@ open class StyleGuideFragment : BottomSheetFragment(R.layout.fragment_style_guid
             }
         }
 
-        addViewsToRelevantSection(ViewStyle("Button", buttonStylesList, false))
+        addViewsToRelevantSection("Button", buttonStylesList, false)
     }
 
-    open fun populateTextStyles(
+    /**
+     * Call this function to populate the style guide with your text styles.
+     * @param themes A list of styles these can be retrieved using Class.forName("$packageName.R\$style").declaredFields.
+     * @param prefixesList A list of prefixes used in your styles, by default this is a list of commonly used prefixes.
+     */
+    fun populateTextStyles(
         themes: Array<Field>,
         prefixesList: List<String> = listOf("Body", "Heading", "Caption", "Subtitle", "Bold", "Regular")
     ) {
@@ -104,10 +115,16 @@ open class StyleGuideFragment : BottomSheetFragment(R.layout.fragment_style_guid
             }
         }
 
-        addViewsToRelevantSection(ViewStyle("Text", textStylesList, false))
+        addViewsToRelevantSection("Text", textStylesList, false)
     }
 
-    open fun populateCheckboxStyles(
+    /**
+     * Call this function to populate the style guide with your checkbox styles, and to choose the component type.
+     * @param themes A list of styles these can be retrieved using Class.forName("$packageName.R\$style").declaredFields.
+     * @param prefixesList A list of prefixes used in your styles, by default this is a list of commonly used prefixes.
+     * @param usesMaterialComponents Identifies whether styles for this component should be applied to a materialComponent or an appCompatComponent.
+     */
+    fun populateCheckboxStyles(
         themes: Array<Field>,
         prefixesList: List<String> = listOf("Checkbox", "checkbox", "CheckBox"),
         usesMaterialComponents: Boolean = false
@@ -120,10 +137,16 @@ open class StyleGuideFragment : BottomSheetFragment(R.layout.fragment_style_guid
             }
         }
 
-        addViewsToRelevantSection(ViewStyle("Checkbox", checkboxStylesList, false))
+        addViewsToRelevantSection("Checkbox", checkboxStylesList, false)
     }
 
-    open fun populateRadioButtonStyles(
+    /**
+     * Call this function to populate the style guide with your radio button styles, and to choose the component type.
+     * @param themes A list of styles these can be retrieved using Class.forName("$packageName.R\$style").declaredFields.
+     * @param prefixesList A list of prefixes used in your styles, by default this is a list of commonly used prefixes.
+     * @param usesMaterialComponents Identifies whether styles for this component should be applied to a materialComponent or an appCompatComponent.
+     */
+    fun populateRadioButtonStyles(
         themes: Array<Field>,
         prefixesList: List<String> = listOf("RadioButton", "Radiobutton", "radiobutton"),
         usesMaterialComponents: Boolean = false
@@ -136,10 +159,16 @@ open class StyleGuideFragment : BottomSheetFragment(R.layout.fragment_style_guid
             }
         }
 
-        addViewsToRelevantSection(ViewStyle("RadioButton", radiobuttonStyleList, false))
+        addViewsToRelevantSection("RadioButton", radiobuttonStyleList, false)
     }
 
-    open fun populateSwitchStyles(
+    /**
+     * Call this function to populate the style guide with your switch styles, and to choose the component type.
+     * @param themes A list of styles these can be retrieved using Class.forName("$packageName.R\$style").declaredFields.
+     * @param prefixesList A list of prefixes used in your styles, by default this is a list of commonly used prefixes.
+     * @param usesMaterialComponents Identifies whether styles for this component should be applied to a materialComponent or an appCompatComponent.
+     */
+    fun populateSwitchStyles(
         themes: Array<Field>,
         prefixesList: List<String> = listOf("Switch", "switch"),
         usesMaterialComponents: Boolean = false
@@ -152,11 +181,16 @@ open class StyleGuideFragment : BottomSheetFragment(R.layout.fragment_style_guid
             }
         }
 
-        addViewsToRelevantSection(ViewStyle("Switch", switchStyleList, false))
+        addViewsToRelevantSection("Switch", switchStyleList, false)
     }
 
-    private fun addViewsToRelevantSection(styleInfo: ViewStyle) {
-        if (styleInfo.stylesList.isEmpty()) return
+    /**
+     * @param componentName A string name for the view component.
+     * @param stylesList A list of styles for the component.
+     * @param usesMaterialComponents Tells the function whether to create the views using material components or app compat components.
+     */
+    private fun addViewsToRelevantSection(componentName: String, stylesList: List<Pair<String, Int>>, usesMaterialComponents: Boolean = false) {
+        if (stylesList.isEmpty()) return
 
         val params = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
         val bottom = resources.getDimensionPixelSize(R.dimen.guidestyle_largest_spacing)
@@ -164,15 +198,15 @@ open class StyleGuideFragment : BottomSheetFragment(R.layout.fragment_style_guid
         params.setMargins(vertical, 0, vertical, bottom)
 
 
-        when (styleInfo.name) {
+        when (componentName) {
             "Button" -> {
                 binding?.apply {
                     buttonContainerView.isVisible = true
                     buttonEnabledContainerView.removeAllViews()
                     buttonDisabledContainerView.removeAllViews()
 
-                    styleInfo.stylesList.forEach {
-                        val (button, disabledButton) = if (styleInfo.usesMaterialComponents) {
+                    stylesList.forEach {
+                        val (button, disabledButton) = if (usesMaterialComponents) {
                             Pair(MaterialButton(ContextThemeWrapper(requireContext(), it.second), null, it.second), MaterialButton(ContextThemeWrapper(requireContext(), it.second), null, it.second))
                         } else {
                             Pair(AppCompatButton(ContextThemeWrapper(requireContext(), it.second), null, it.second), AppCompatButton(ContextThemeWrapper(requireContext(), it.second), null, it.second))
@@ -195,7 +229,7 @@ open class StyleGuideFragment : BottomSheetFragment(R.layout.fragment_style_guid
             "Text" -> {
                 binding?.apply {
                     textContainerView.isVisible = true
-                    textRecyclerView.adapter = TextStylesAdapter(styleInfo.stylesList)
+                    textRecyclerView.adapter = TextStylesAdapter(stylesList)
                 }
             }
 
@@ -205,9 +239,9 @@ open class StyleGuideFragment : BottomSheetFragment(R.layout.fragment_style_guid
                     checkboxEnabledContainerView.removeAllViews()
                     checkboxDisabledContainerView.removeAllViews()
 
-                    styleInfo.stylesList.forEach { style ->
+                    stylesList.forEach { style ->
                         val (checkboxChecked, checkboxNotChecked, checkboxCheckedDisabled, checkboxNotCheckedDisabled) = List(4) {
-                            if (styleInfo.usesMaterialComponents) {
+                            if (usesMaterialComponents) {
                                 MaterialCheckBox(ContextThemeWrapper(requireContext(), style.second), null, style.second)
                             } else {
                                 AppCompatCheckBox(ContextThemeWrapper(requireContext(), style.second), null, style.second)
@@ -236,9 +270,9 @@ open class StyleGuideFragment : BottomSheetFragment(R.layout.fragment_style_guid
                     radiobuttonEnabledContainerView.removeAllViews()
                     radiobuttonDisabledContainerView.removeAllViews()
 
-                    styleInfo.stylesList.forEach { style ->
+                    stylesList.forEach { style ->
                         val (radioButtonChecked, radioButtonNotChecked, radioButtonCheckedDisabled, radioButtonNotCheckedDisabled) = List(4) {
-                            if (styleInfo.usesMaterialComponents) {
+                            if (usesMaterialComponents) {
                                 MaterialRadioButton(ContextThemeWrapper(requireContext(), style.second), null, style.second)
                             } else {
                                 AppCompatRadioButton(ContextThemeWrapper(requireContext(), style.second), null, style.second)
@@ -267,9 +301,9 @@ open class StyleGuideFragment : BottomSheetFragment(R.layout.fragment_style_guid
                     switchEnabledContainerView.removeAllViews()
                     switchDisabledContainerView.removeAllViews()
 
-                    styleInfo.stylesList.forEach { style ->
+                    stylesList.forEach { style ->
                         val (switchChecked, switchNotChecked, switchCheckedDisabled, switchNotCheckedDisabled) = List(4) {
-                            if (styleInfo.usesMaterialComponents) {
+                            if (usesMaterialComponents) {
                                 MaterialSwitch(ContextThemeWrapper(requireContext(), style.second), null, style.second)
                             } else {
                                 SwitchCompat(ContextThemeWrapper(requireContext(), style.second), null, style.second)
@@ -294,6 +328,9 @@ open class StyleGuideFragment : BottomSheetFragment(R.layout.fragment_style_guid
         }
     }
 
+    /**
+     * Function to be called when the fragment loads. It will call the various populate functions for the style guide. These functions can then be called again if you need to customise the content.
+     */
     private fun populateStyles(packageName: String) {
         val themes: Array<Field> = Class.forName("$packageName.R\$style").declaredFields
         populateButtonStyles(themes)
@@ -373,5 +410,3 @@ open class StyleGuideFragment : BottomSheetFragment(R.layout.fragment_style_guid
         (activity as? ShakeSensorListener.StyleGuideHandler)?.registerListener()
     }
 }
-
-data class ViewStyle(val name: String, val stylesList: List<Pair<String, Int>>, val usesMaterialComponents: Boolean)

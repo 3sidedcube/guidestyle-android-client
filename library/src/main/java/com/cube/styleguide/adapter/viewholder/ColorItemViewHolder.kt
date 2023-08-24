@@ -25,7 +25,9 @@ class ColorItemViewHolder(private val binding: ColorBannerViewBinding) : Recycle
 		list?.forEachIndexed { index, pair ->
 			val colorItemView = ColorItemViewBinding.inflate(LayoutInflater.from(itemView.context))
 			colorItemView.root.layoutParams = params
-			populateView(colorItemView, getMiddlePosition(list) == index, pair)
+            // If the colour list size is even it won't have a middle position, so instead we will take the index that is half of the size.
+            val isMiddle = if (list.size%2 == 0) list.size/2 else getMiddlePosition(list)
+			populateView(colorItemView, isMiddle == index , pair)
 			binding.colorContainer.addView(colorItemView.root)
 		}
 	}

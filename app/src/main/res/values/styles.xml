@@ -46,5 +46,4 @@
 		<item name="android:letterSpacing">0.02</item>
 		<item name="lineHeight">20dp</item>
 	</style>
-
 </resources>

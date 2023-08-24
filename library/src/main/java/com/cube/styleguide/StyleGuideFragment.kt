@@ -87,6 +87,7 @@ open class StyleGuideFragment : BottomSheetFragment(R.layout.fragment_style_guid
         prefixesList: List<String> = listOf("Button", "button"),
         usesMaterialComponents: Boolean = false
     ) {
+
         val buttonStylesList = mutableListOf<Pair<String, Int>>()
 
         themes.forEach { theme ->
@@ -95,7 +96,7 @@ open class StyleGuideFragment : BottomSheetFragment(R.layout.fragment_style_guid
             }
         }
 
-        addViewsToRelevantSection("Button", buttonStylesList, false)
+        addViewsToRelevantSection("Button", buttonStylesList, usesMaterialComponents)
     }
 
     /**
@@ -115,7 +116,7 @@ open class StyleGuideFragment : BottomSheetFragment(R.layout.fragment_style_guid
             }
         }
 
-        addViewsToRelevantSection("Text", textStylesList, false)
+        addViewsToRelevantSection("Text", textStylesList)
     }
 
     /**
@@ -137,7 +138,7 @@ open class StyleGuideFragment : BottomSheetFragment(R.layout.fragment_style_guid
             }
         }
 
-        addViewsToRelevantSection("Checkbox", checkboxStylesList, false)
+        addViewsToRelevantSection("Checkbox", checkboxStylesList, usesMaterialComponents)
     }
 
     /**
@@ -159,7 +160,7 @@ open class StyleGuideFragment : BottomSheetFragment(R.layout.fragment_style_guid
             }
         }
 
-        addViewsToRelevantSection("RadioButton", radiobuttonStyleList, false)
+        addViewsToRelevantSection("RadioButton", radiobuttonStyleList, usesMaterialComponents)
     }
 
     /**
@@ -181,7 +182,7 @@ open class StyleGuideFragment : BottomSheetFragment(R.layout.fragment_style_guid
             }
         }
 
-        addViewsToRelevantSection("Switch", switchStyleList, false)
+        addViewsToRelevantSection("Switch", switchStyleList, usesMaterialComponents)
     }
 
     /**
@@ -235,7 +236,7 @@ open class StyleGuideFragment : BottomSheetFragment(R.layout.fragment_style_guid
 
             "Checkbox" -> {
                 binding?.apply {
-                    checkboxContainer.isVisible = true
+                    checkboxContainerView.isVisible = true
                     checkboxEnabledContainerView.removeAllViews()
                     checkboxDisabledContainerView.removeAllViews()
 

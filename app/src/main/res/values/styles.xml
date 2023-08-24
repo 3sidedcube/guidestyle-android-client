@@ -47,4 +47,9 @@
 		<item name="lineHeight">20dp</item>
 	</style>
 
+	<style name="Button">
+		<item name="android:background">@color/red</item>
+		<item name="android:gravity">center</item>
+		<item name="android:padding">20dp</item>
+	</style>
 </resources>

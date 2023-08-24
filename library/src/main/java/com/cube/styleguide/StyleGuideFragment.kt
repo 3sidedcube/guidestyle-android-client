@@ -11,6 +11,7 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatCheckBox
 import androidx.appcompat.widget.AppCompatRadioButton
 import androidx.appcompat.widget.SwitchCompat
+import androidx.core.view.isVisible
 import com.cube.styleguide.adapter.ColorAdapter
 import com.cube.styleguide.adapter.SpacingAdapter
 import com.cube.styleguide.adapter.TextStylesAdapter
@@ -18,279 +19,359 @@ import com.cube.styleguide.databinding.FragmentStyleGuideBinding
 import com.cube.styleguide.fragments.BottomSheetFragment
 import com.cube.styleguide.utils.Extensions.firstPart
 import com.cube.styleguide.utils.ShakeSensorListener
+import com.google.android.material.button.MaterialButton
+import com.google.android.material.checkbox.MaterialCheckBox
+import com.google.android.material.materialswitch.MaterialSwitch
+import com.google.android.material.radiobutton.MaterialRadioButton
 import java.lang.reflect.Field
 
 open class StyleGuideFragment : BottomSheetFragment(R.layout.fragment_style_guide) {
-	private var binding: FragmentStyleGuideBinding? = null
+    private var binding: FragmentStyleGuideBinding? = null
 
-	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-		binding = FragmentStyleGuideBinding.inflate(inflater, container, false)
-		binding?.closeButton?.setOnClickListener { dismiss() }
-		return binding?.root
-	}
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        binding = FragmentStyleGuideBinding.inflate(inflater, container, false)
+        binding?.closeButton?.setOnClickListener { dismiss() }
+        return binding?.root
+    }
 
-	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-		val packageName = getPackageName()
-		if (packageName.isEmpty()) {
-			binding?.apply {
-				nestedScrollView.visibility = View.GONE
-				errorMessage.text = getString(R.string.guidestyle_failed_to_load_the_package, context?.packageName!!)
-				errorMessage.visibility = View.VISIBLE
-			}
-		} else {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        val packageName = getPackageName()
+        if (packageName.isEmpty()) {
+            binding?.apply {
+                nestedScrollView.visibility = View.GONE
+                errorMessage.text = getString(R.string.guidestyle_failed_to_load_the_package, context?.packageName!!)
+                errorMessage.visibility = View.VISIBLE
+            }
+        } else {
 
-			populateColors(packageName)
+            populateColors(packageName)
 
-			populateSpacings(packageName)
+            populateSpacings(packageName)
 
-			populateStyles(packageName)
-		}
-	}
+            populateStyles(packageName)
+        }
+    }
 
-	/**
-	 * Tries to recover the package name of the app.
-	 * In case the app has multiple flavours but they do not have different res(colors,dimens, style) it will fall back on the main flavour (aka production flavour)
-	 *
-	 * @return package name or empty string
-	 */
-	private fun getPackageName(): String {
-		val packageName = context?.packageName!!
-		try {
-			Class.forName("$packageName.R\$style").declaredFields
-		} catch (cne: ClassNotFoundException) {
-			return if (packageName.endsWith(".staging", true)) {
-				packageName.replace(".staging", "")
-			} else if (packageName.endsWith(".test", true)) {
-				packageName.replace(".test", "")
-			} else if (packageName.endsWith(".dev", true)) {
-				packageName.replace(".dev", "")
-			} else {
-				""
-			}
-		}
-		return packageName
-	}
+    /**
+     * Tries to recover the package name of the app.
+     * In case the app has multiple flavours but they do not have different res(colors,dimens, style) it will fall back on the main flavour (aka production flavour)
+     *
+     * @return package name or empty string
+     */
+    private fun getPackageName(): String {
+        val packageName = context?.packageName!!
+        try {
+            Class.forName("$packageName.R\$style").declaredFields
+        } catch (cne: ClassNotFoundException) {
+            return if (packageName.endsWith(".staging", true)) {
+                packageName.replace(".staging", "")
+            } else if (packageName.endsWith(".test", true)) {
+                packageName.replace(".test", "")
+            } else if (packageName.endsWith(".dev", true)) {
+                packageName.replace(".dev", "")
+            } else {
+                ""
+            }
+        }
+        return packageName
+    }
 
-	private fun populateStyles(packageName: String) {
-		var buttonStylesList = listOf<Pair<String, Int>>()
-		var textStylesList = listOf<Pair<String, Int>>()
-		var checkBoxStylesList = listOf<Pair<String, Int>>()
-		var radioButtonStylesList = listOf<Pair<String, Int>>()
-		var switchButtonStylesList = listOf<Pair<String, Int>>()
+    open fun populateButtonStyles(
+        themes: Array<Field>,
+        prefixesList: List<String> = listOf("Button", "button"),
+        usesMaterialComponents: Boolean = false
+    ) {
+        val buttonStylesList = mutableListOf<Pair<String, Int>>()
 
-		val themes: Array<Field> = Class.forName("$packageName.R\$style").declaredFields
-		for (theme in themes) {
-			val themeName: String = theme.name
-			val themeId: Int = theme.getInt(null)
-			if (themeName.startsWith("Button_")) {
-				buttonStylesList = buttonStylesList.plus(Pair(themeName, themeId))
-			} else if (themeName.startsWith("Checkbox")) {
-				checkBoxStylesList = checkBoxStylesList.plus(Pair(themeName, themeId))
-			} else if (themeName.startsWith("Switch")) {
-				switchButtonStylesList = switchButtonStylesList.plus(Pair(themeName, themeId))
-			} else if (themeName.startsWith("RadioButton")) {
-				radioButtonStylesList = radioButtonStylesList.plus(Pair(themeName, themeId))
-			} else if (themeName.startsWith("Heading_") || themeName.startsWith("Body_") || themeName.startsWith("Caption_") || themeName.startsWith("Subtitle_")) {
-				textStylesList = textStylesList.plus(Pair(themeName, themeId))
-			}
-		}
-		binding?.apply {
-			val params = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
-			val bottom = resources.getDimensionPixelSize(R.dimen.guidestyle_largest_spacing)
-			val vertical = resources.getDimensionPixelSize(R.dimen.guidestyle_small_spacing)
-			params.setMargins(vertical, 0, vertical, bottom)
-			if (textStylesList.isEmpty()) {
-				textContainerView.visibility = View.GONE
-			} else {
-				textContainerView.visibility = View.VISIBLE
-				textRecyclerView.adapter = TextStylesAdapter(textStylesList)
-			}
-			if (buttonStylesList.isEmpty()) {
-				buttonContainerView.visibility = View.GONE
-			} else {
-				buttonContainerView.visibility = View.VISIBLE
-				buttonEnabledContainerView.removeAllViews()
-				buttonDisabledContainerView.removeAllViews()
-				buttonStylesList.forEach {
-					val button = AppCompatButton(ContextThemeWrapper(requireContext(), it.second), null, it.second)
-					button.text = it.first
-					button.layoutParams = params
-					button.isClickable = true
-					val disabledbutton = AppCompatButton(ContextThemeWrapper(requireContext(), it.second), null, it.second)
-					disabledbutton.text = it.first
-					disabledbutton.isEnabled = false
-					disabledbutton.layoutParams = params
-					buttonEnabledContainerView.addView(button)
-					buttonDisabledContainerView.addView(disabledbutton)
-				}
-			}
-			if (checkBoxStylesList.isEmpty()) {
-				checkboxContainerView.visibility = View.GONE
-			} else {
-				checkboxContainerView.visibility = View.VISIBLE
-				checkboxEnabledContainerView.removeAllViews()
-				checkboxDisabledContainerView.removeAllViews()
-				checkBoxStylesList.forEach {
-					val checkbox = AppCompatCheckBox(ContextThemeWrapper(requireContext(), it.second), null, it.second)
-					checkbox.text = it.first
-					checkbox.isClickable = true
-					checkbox.layoutParams = params
-					val disabledCheckbox = AppCompatCheckBox(ContextThemeWrapper(requireContext(), it.second), null, it.second)
-					disabledCheckbox.isEnabled = false
-					disabledCheckbox.text = it.first
-					disabledCheckbox.layoutParams = params
+        themes.forEach { theme ->
+            if (prefixesList.any { theme.name.startsWith(it) }) {
+                buttonStylesList.add(Pair(theme.name, theme.getInt(null)))
+            }
+        }
 
-					val checkboxChecked = AppCompatCheckBox(ContextThemeWrapper(requireContext(), it.second), null, it.second)
-					checkboxChecked.text = it.first
-					checkboxChecked.isClickable = true
-					checkboxChecked.isChecked = true
-					checkboxChecked.layoutParams = params
-					val disabledCheckedCheckbox = AppCompatCheckBox(ContextThemeWrapper(requireContext(), it.second), null, it.second)
-					disabledCheckedCheckbox.isChecked = true
-					disabledCheckedCheckbox.isEnabled = false
-					disabledCheckedCheckbox.text = it.first
-					disabledCheckedCheckbox.layoutParams = params
+        addViewsToRelevantSection(ViewStyle("Button", buttonStylesList, true))
+    }
 
-					checkboxEnabledContainerView.addView(checkbox)
-					checkboxEnabledContainerView.addView(checkboxChecked)
-					checkboxDisabledContainerView.addView(disabledCheckbox)
-					checkboxDisabledContainerView.addView(disabledCheckedCheckbox)
-				}
-			}
-			if (radioButtonStylesList.isEmpty()) {
-				radiobuttonContainerView.visibility = View.GONE
-			} else {
-				radiobuttonContainerView.visibility = View.VISIBLE
-				radiobuttonEnabledContainerView.removeAllViews()
-				radiobuttonDisabledContainerView.removeAllViews()
-				radioButtonStylesList.forEach {
-					val radioButton = AppCompatRadioButton(ContextThemeWrapper(requireContext(), it.second), null, it.second)
-					radioButton.text = it.first
-					radioButton.isClickable = true
-					radioButton.layoutParams = params
-					val disabledRadioButton = AppCompatCheckBox(ContextThemeWrapper(requireContext(), it.second), null, it.second)
-					disabledRadioButton.isEnabled = false
-					disabledRadioButton.text = it.first
-					disabledRadioButton.layoutParams = params
+    open fun populateTextStyles(
+        themes: Array<Field>,
+        prefixesList: List<String> = listOf("Body", "Heading", "Caption", "Subtitle", "Bold", "Regular")
+    ) {
+        val textStylesList = mutableListOf<Pair<String, Int>>()
 
-					val radioSelectedButton = AppCompatRadioButton(ContextThemeWrapper(requireContext(), it.second), null, it.second)
-					radioSelectedButton.text = it.first
-					radioSelectedButton.isClickable = true
-					radioSelectedButton.isChecked = true
-					radioSelectedButton.layoutParams = params
-					val disabledSelectedRadioButton = AppCompatCheckBox(ContextThemeWrapper(requireContext(), it.second), null, it.second)
-					disabledSelectedRadioButton.isEnabled = false
-					disabledSelectedRadioButton.isChecked = true
-					disabledSelectedRadioButton.text = it.first
-					disabledSelectedRadioButton.layoutParams = params
-					radiobuttonEnabledContainerView.addView(radioButton)
-					radiobuttonEnabledContainerView.addView(radioSelectedButton)
-					radiobuttonDisabledContainerView.addView(disabledRadioButton)
-					radiobuttonDisabledContainerView.addView(disabledSelectedRadioButton)
-				}
-			}
-			if (switchButtonStylesList.isEmpty()) {
-				switchContainerView.visibility = View.GONE
-			} else {
-				switchContainerView.visibility = View.VISIBLE
-				switchEnabledContainerView.removeAllViews()
-				switchDisabledContainerView.removeAllViews()
-				switchButtonStylesList.forEach {
-					val switch = SwitchCompat(ContextThemeWrapper(requireContext(), it.second), null, it.second)
-					switch.text = it.first
-					switch.isClickable = true
-					switch.layoutParams = params
-					val disabledSwitch = SwitchCompat(ContextThemeWrapper(requireContext(), it.second), null, it.second)
-					disabledSwitch.isEnabled = false
-					disabledSwitch.text = it.first
-					disabledSwitch.layoutParams = params
+        themes.forEach { theme ->
+            if (prefixesList.any { theme.name.startsWith(it) }) {
+                textStylesList.add(Pair(theme.name, theme.getInt(null)))
+            }
+        }
 
-					val switchSelectedButton = SwitchCompat(ContextThemeWrapper(requireContext(), it.second), null, it.second)
-					switchSelectedButton.text = it.first
-					switchSelectedButton.isClickable = true
-					switchSelectedButton.isChecked = true
-					switchSelectedButton.layoutParams = params
-					val disabledSelectedSwitch = SwitchCompat(ContextThemeWrapper(requireContext(), it.second), null, it.second)
-					disabledSelectedSwitch.isEnabled = false
-					disabledSelectedSwitch.isChecked = true
-					disabledSelectedSwitch.text = it.first
-					disabledSelectedSwitch.layoutParams = params
-					switchEnabledContainerView.addView(switch)
-					switchEnabledContainerView.addView(switchSelectedButton)
-					switchDisabledContainerView.addView(disabledSwitch)
-					switchDisabledContainerView.addView(disabledSelectedSwitch)
-				}
-			}
-		}
-	}
+        addViewsToRelevantSection(ViewStyle("Text", textStylesList, false))
+    }
 
-	private fun populateSpacings(packageName: String) {
-		var spacingsList = listOf<Pair<String, Int>>()
-		val dimens: Array<Field> = Class.forName("$packageName.R\$dimen").declaredFields
-		for (dimen in dimens) {
-			val dimenName: String = dimen.name
-			val dimenId: Int = dimen.getInt(null)
-			spacingsList = spacingsList.plus(Pair(dimenName, dimenId))
-		}
-		binding?.apply {
-			if (spacingsList.isEmpty()) {
-				layoutContainerView.visibility = View.GONE
-			} else {
-				layoutContainerView.visibility = View.VISIBLE
-				layoutRecyclerView.adapter = SpacingAdapter(spacingsList)
-			}
-		}
-	}
+    open fun populateCheckboxStyles(
+        themes: Array<Field>,
+        prefixesList: List<String> = listOf("Checkbox", "checkbox", "CheckBox"),
+        usesMaterialComponents: Boolean = false
+    ) {
+        val checkboxStylesList = mutableListOf<Pair<String, Int>>()
 
-	private fun populateColors(packageName: String) {
-		val colorList: HashMap<String, List<Pair<String, Int>>> = hashMapOf()
-		val colors: Array<Field> = Class.forName("$packageName.R\$color").declaredFields
-		for (color in colors) {
-			val colorName: String = color.name
-			if (!colorName.startsWith("guidestyle", true)) {
-				val colorId: Int = color.getInt(null)
-				var list = colorList[colorName.firstPart()]
-				if (list != null) {
-					list = list.plus(Pair(colorName, colorId))
-					colorList[colorName.firstPart()] = list
-				} else {
-					list = listOf()
-					list = list.plus(Pair(colorName, colorId))
-					colorList[colorName.firstPart()] = list
-				}
-			}
-		}
-		binding?.apply {
-			if (colorList.isEmpty()) {
-				colorContainerView.visibility = View.GONE
-			} else {
-				colorContainerView.visibility = View.VISIBLE
-				binding?.colorRecyclerView?.adapter = ColorAdapter(colorList)
-			}
-		}
-	}
+        themes.forEach { theme ->
+            if (prefixesList.any { theme.name.startsWith(it) }) {
+                checkboxStylesList.add(Pair(theme.name, theme.getInt(null)))
+            }
+        }
 
-	/**
-	 * Override the onViewCreated and call this function in order to add you custom views
-	 */
-	fun addCustomView(view: View) {
-		binding?.customViews?.addView(view)
-		binding?.customViewContainer?.visibility = View.VISIBLE
-	}
+        addViewsToRelevantSection(ViewStyle("Checkbox", checkboxStylesList, false))
+    }
 
-	override fun onDestroyView() {
-		super.onDestroyView()
-		/**
-		 * Move sure to remove the custom views, cos otherwise you need to create new views everytime due to the parent of the view being the previous instance of the Fragment
-		 * This is not an issue for the rest of the views cos they get recreated everytime. While custom views remain in the [GuideStyleManager]
-		 */
-		binding?.customViews?.removeAllViews()
-		binding = null
-	}
+    open fun populateRadioButtonStyles(
+        themes: Array<Field>,
+        prefixesList: List<String> = listOf("RadioButton", "Radiobutton", "radiobutton"),
+        usesMaterialComponents: Boolean = false
+    ) {
+        val radiobuttonStyleList = mutableListOf<Pair<String, Int>>()
 
-	override fun onDismiss(dialog: DialogInterface) {
-		super.onDismiss(dialog)
+        themes.forEach { theme ->
+            if (prefixesList.any { theme.name.startsWith(it) }) {
+                radiobuttonStyleList.add(Pair(theme.name, theme.getInt(null)))
+            }
+        }
 
-		(activity as? ShakeSensorListener.StyleGuideHandler)?.registerListener()
-	}
+        addViewsToRelevantSection(ViewStyle("RadioButton", radiobuttonStyleList, false))
+    }
+
+    open fun populateSwitchStyles(
+        themes: Array<Field>,
+        prefixesList: List<String> = listOf("Switch", "switch"),
+        usesMaterialComponents: Boolean = false
+    ) {
+        val switchStyleList = mutableListOf<Pair<String, Int>>()
+
+        themes.forEach { theme ->
+            if (prefixesList.any { theme.name.startsWith(it) }) {
+                switchStyleList.add(Pair(theme.name, theme.getInt(null)))
+            }
+        }
+
+        addViewsToRelevantSection(ViewStyle("Switch", switchStyleList, false))
+    }
+
+    private fun addViewsToRelevantSection(styleInfo: ViewStyle) {
+        if (styleInfo.stylesList.isEmpty()) return
+
+        val params = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+        val bottom = resources.getDimensionPixelSize(R.dimen.guidestyle_largest_spacing)
+        val vertical = resources.getDimensionPixelSize(R.dimen.guidestyle_small_spacing)
+        params.setMargins(vertical, 0, vertical, bottom)
+
+
+        when (styleInfo.name) {
+            "Button" -> {
+                binding?.apply {
+                    buttonContainerView.isVisible = true
+                    buttonEnabledContainerView.removeAllViews()
+                    buttonDisabledContainerView.removeAllViews()
+
+                    styleInfo.stylesList.forEach {
+                        val (button, disabledButton) = if (styleInfo.usesMaterialComponents) {
+                            Pair(MaterialButton(ContextThemeWrapper(requireContext(), it.second), null, it.second), MaterialButton(ContextThemeWrapper(requireContext(), it.second), null, it.second))
+                        } else {
+                            Pair(AppCompatButton(ContextThemeWrapper(requireContext(), it.second), null, it.second), AppCompatButton(ContextThemeWrapper(requireContext(), it.second), null, it.second))
+                        }
+
+                        button.text = it.first
+                        button.layoutParams = params
+                        button.isClickable = true
+
+                        disabledButton.text = it.first
+                        disabledButton.isEnabled = false
+                        disabledButton.layoutParams = params
+                        buttonEnabledContainerView.addView(button)
+
+                        buttonDisabledContainerView.addView(disabledButton)
+                    }
+                }
+            }
+
+            "Text" -> {
+                binding?.apply {
+                    textContainerView.isVisible = true
+                    textRecyclerView.adapter = TextStylesAdapter(styleInfo.stylesList)
+                }
+            }
+
+            "Checkbox" -> {
+                binding?.apply {
+                    checkboxContainer.isVisible = true
+                    checkboxEnabledContainerView.removeAllViews()
+                    checkboxDisabledContainerView.removeAllViews()
+
+                    styleInfo.stylesList.forEach { style ->
+                        val (checkboxChecked, checkboxNotChecked, checkboxCheckedDisabled, checkboxNotCheckedDisabled) = List(4) {
+                            if (styleInfo.usesMaterialComponents) {
+                                MaterialCheckBox(ContextThemeWrapper(requireContext(), style.second), null, style.second)
+                            } else {
+                                AppCompatCheckBox(ContextThemeWrapper(requireContext(), style.second), null, style.second)
+                            }
+                        }.onEach {
+                            it.text = style.first
+                            it.layoutParams = params
+                        }
+
+                        checkboxChecked.isChecked = true
+                        checkboxCheckedDisabled.isChecked = true
+                        checkboxCheckedDisabled.isEnabled = false
+                        checkboxNotCheckedDisabled.isEnabled = false
+
+                        checkboxEnabledContainerView.addView(checkboxChecked)
+                        checkboxEnabledContainerView.addView(checkboxNotChecked)
+                        checkboxDisabledContainerView.addView(checkboxCheckedDisabled)
+                        checkboxDisabledContainerView.addView(checkboxNotCheckedDisabled)
+                    }
+                }
+            }
+
+            "RadioButton" -> {
+                binding?.apply {
+                    radiobuttonContainerView.isVisible = true
+                    radiobuttonEnabledContainerView.removeAllViews()
+                    radiobuttonDisabledContainerView.removeAllViews()
+
+                    styleInfo.stylesList.forEach { style ->
+                        val (radioButtonChecked, radioButtonNotChecked, radioButtonCheckedDisabled, radioButtonNotCheckedDisabled) = List(4) {
+                            if (styleInfo.usesMaterialComponents) {
+                                MaterialRadioButton(ContextThemeWrapper(requireContext(), style.second), null, style.second)
+                            } else {
+                                AppCompatRadioButton(ContextThemeWrapper(requireContext(), style.second), null, style.second)
+                            }
+                        }.onEach {
+                            it.layoutParams = params
+                            it.text = style.first
+                        }
+
+                        radioButtonChecked.isChecked = true
+                        radioButtonCheckedDisabled.isChecked = true
+                        radioButtonCheckedDisabled.isEnabled = false
+                        radioButtonNotCheckedDisabled.isEnabled = false
+
+                        radiobuttonEnabledContainerView.addView(radioButtonChecked)
+                        radiobuttonEnabledContainerView.addView(radioButtonNotChecked)
+                        radiobuttonDisabledContainerView.addView(radioButtonCheckedDisabled)
+                        radiobuttonDisabledContainerView.addView(radioButtonNotCheckedDisabled)
+                    }
+                }
+            }
+
+            "Switch" -> {
+                binding?.apply {
+                    switchContainerView.visibility = View.VISIBLE
+                    switchEnabledContainerView.removeAllViews()
+                    switchDisabledContainerView.removeAllViews()
+
+                    styleInfo.stylesList.forEach { style ->
+                        val (switchChecked, switchNotChecked, switchCheckedDisabled, switchNotCheckedDisabled) = List(4) {
+                            if (styleInfo.usesMaterialComponents) {
+                                MaterialSwitch(ContextThemeWrapper(requireContext(), style.second), null, style.second)
+                            } else {
+                                SwitchCompat(ContextThemeWrapper(requireContext(), style.second), null, style.second)
+                            }
+                        }.onEach {
+                            it.layoutParams = params
+                            it.text = style.first
+                        }
+
+                        switchChecked.isChecked = true
+                        switchCheckedDisabled.isChecked = true
+                        switchCheckedDisabled.isEnabled = false
+                        switchNotCheckedDisabled.isEnabled = false
+
+                        switchEnabledContainerView.addView(switchChecked)
+                        switchEnabledContainerView.addView(switchNotChecked)
+                        switchDisabledContainerView.addView(switchCheckedDisabled)
+                        switchDisabledContainerView.addView(switchNotCheckedDisabled)
+                    }
+                }
+            }
+        }
+    }
+
+    private fun populateStyles(packageName: String) {
+        val themes: Array<Field> = Class.forName("$packageName.R\$style").declaredFields
+        populateButtonStyles(themes)
+        populateTextStyles(themes)
+        populateCheckboxStyles(themes)
+        populateRadioButtonStyles(themes)
+        populateSwitchStyles(themes)
+    }
+
+    private fun populateSpacings(packageName: String) {
+        var spacingsList = listOf<Pair<String, Int>>()
+        val dimens: Array<Field> = Class.forName("$packageName.R\$dimen").declaredFields
+        for (dimen in dimens) {
+            val dimenName: String = dimen.name
+            val dimenId: Int = dimen.getInt(null)
+            spacingsList = spacingsList.plus(Pair(dimenName, dimenId))
+        }
+        binding?.apply {
+            if (spacingsList.isEmpty()) {
+                layoutContainerView.visibility = View.GONE
+            } else {
+                layoutContainerView.visibility = View.VISIBLE
+                layoutRecyclerView.adapter = SpacingAdapter(spacingsList)
+            }
+        }
+    }
+
+    private fun populateColors(packageName: String) {
+        val colorList: HashMap<String, List<Pair<String, Int>>> = hashMapOf()
+        val colors: Array<Field> = Class.forName("$packageName.R\$color").declaredFields
+        for (color in colors) {
+            val colorName: String = color.name
+            if (!colorName.startsWith("guidestyle", true)) {
+                val colorId: Int = color.getInt(null)
+                var list = colorList[colorName.firstPart()]
+                if (list != null) {
+                    list = list.plus(Pair(colorName, colorId))
+                    colorList[colorName.firstPart()] = list
+                } else {
+                    list = listOf()
+                    list = list.plus(Pair(colorName, colorId))
+                    colorList[colorName.firstPart()] = list
+                }
+            }
+        }
+        binding?.apply {
+            if (colorList.isEmpty()) {
+                colorContainerView.visibility = View.GONE
+            } else {
+                colorContainerView.visibility = View.VISIBLE
+                binding?.colorRecyclerView?.adapter = ColorAdapter(colorList)
+            }
+        }
+    }
+
+    /**
+     * Override the onViewCreated and call this function in order to add you custom views
+     */
+    fun addCustomView(view: View) {
+        binding?.customViews?.addView(view)
+        binding?.customViewContainer?.visibility = View.VISIBLE
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        /**
+         * Move sure to remove the custom views, cos otherwise you need to create new views everytime due to the parent of the view being the previous instance of the Fragment
+         * This is not an issue for the rest of the views cos they get recreated everytime. While custom views remain in the [GuideStyleManager]
+         */
+        binding?.customViews?.removeAllViews()
+        binding = null
+    }
+
+    override fun onDismiss(dialog: DialogInterface) {
+        super.onDismiss(dialog)
+
+        (activity as? ShakeSensorListener.StyleGuideHandler)?.registerListener()
+    }
 }
+
+data class ViewStyle(val name: String, val stylesList: List<Pair<String, Int>>, val usesMaterialComponents: Boolean)

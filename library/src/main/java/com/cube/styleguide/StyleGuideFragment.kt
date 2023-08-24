@@ -89,7 +89,7 @@ open class StyleGuideFragment : BottomSheetFragment(R.layout.fragment_style_guid
             }
         }
 
-        addViewsToRelevantSection(ViewStyle("Button", buttonStylesList, true))
+        addViewsToRelevantSection(ViewStyle("Button", buttonStylesList, false))
     }
 
     open fun populateTextStyles(

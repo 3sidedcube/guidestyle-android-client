@@ -78,6 +78,13 @@
 					android:id="@+id/color_recycler_view"
 					android:nestedScrollingEnabled="true"
 					app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+				<androidx.recyclerview.widget.RecyclerView
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:id="@+id/shadow_recycler_view"
+					android:nestedScrollingEnabled="true"
+					app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 			</com.cube.styleguide.views.ExpandableView>
 
 			<!--		Text Styles RecyclerView-->

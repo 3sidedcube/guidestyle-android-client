@@ -13,11 +13,13 @@ import androidx.appcompat.widget.AppCompatRadioButton
 import androidx.appcompat.widget.SwitchCompat
 import androidx.core.view.isVisible
 import com.cube.styleguide.adapter.ColorAdapter
+import com.cube.styleguide.adapter.ShadowAdapter
 import com.cube.styleguide.adapter.SpacingAdapter
 import com.cube.styleguide.adapter.TextStylesAdapter
 import com.cube.styleguide.databinding.FragmentStyleGuideBinding
 import com.cube.styleguide.fragments.BottomSheetFragment
 import com.cube.styleguide.stylehandlers.ColorsHandler
+import com.cube.styleguide.stylehandlers.ShadowsHandler
 import com.cube.styleguide.utils.Extensions.getPackageNameFlavorAdapted
 import com.cube.styleguide.utils.ShakeSensorListener
 import com.google.android.material.button.MaterialButton
@@ -45,7 +47,7 @@ open class StyleGuideFragment : BottomSheetFragment(R.layout.fragment_style_guid
             }
         } else {
 
-            populateColors()
+			populateColorsAndShadow()
 
             populateSpacings(packageName)
 
@@ -336,13 +338,21 @@ open class StyleGuideFragment : BottomSheetFragment(R.layout.fragment_style_guid
         }
     }
 
-    private fun populateColors() {
-        binding?.apply {
+	private fun populateColorsAndShadow() {
+		binding?.apply {
 			val colorList = ColorsHandler.getColors(requireContext())
-			colorContainerView.isVisible = !colorList.isNullOrEmpty()
-			colorRecyclerView.adapter = ColorAdapter(colorList ?: return)
-        }
-    }
+			colorList?.let {
+				colorRecyclerView.adapter = ColorAdapter(it)
+			}
+
+			val shadowList = ShadowsHandler.getShadows(requireContext())
+			shadowList?.let {
+				shadowRecyclerView.adapter = ShadowAdapter(it)
+			}
+
+			colorContainerView.isVisible = !colorList.isNullOrEmpty() || !shadowList.isNullOrEmpty()
+		}
+	}
 
     /**
      * Override the onViewCreated and call this function in order to add you custom views

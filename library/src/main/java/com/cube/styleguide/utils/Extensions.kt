@@ -1,8 +1,10 @@
 package com.cube.styleguide.utils
 
 import android.content.Context
+import android.view.LayoutInflater
 import androidx.core.content.ContextCompat
 import com.cube.styleguide.R
+import java.util.Locale
 
 object Extensions {
 	fun String.firstPart(): String {
@@ -53,4 +55,8 @@ object Extensions {
 	}
 
 	fun Context.getColor(colorId: Int) = ContextCompat.getColor(this, colorId)
+
+	val Context.layoutInflater get() = LayoutInflater.from(this)
+
+	fun String.capitalize() = replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
 }

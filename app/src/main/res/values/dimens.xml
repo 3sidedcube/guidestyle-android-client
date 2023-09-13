@@ -14,4 +14,7 @@
 	<dimen name="spacing_44">44dp</dimen>
 	<dimen name="spacing_60">60dp</dimen>
 	<dimen name="spacing_130">130dp</dimen>
+
+	<dimen name="elevation_light">5.5dp</dimen>
+	<dimen name="elevation_strong">10.2dp</dimen>
 </resources>

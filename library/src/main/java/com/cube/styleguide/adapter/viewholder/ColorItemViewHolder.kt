@@ -2,7 +2,7 @@ package com.cube.styleguide.adapter.viewholder
 
 import android.view.LayoutInflater
 import android.widget.LinearLayout
-import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.cube.styleguide.R
 import com.cube.styleguide.databinding.ColorBannerViewBinding
@@ -10,23 +10,15 @@ import com.cube.styleguide.databinding.ColorItemViewBinding
 import com.cube.styleguide.utils.Extensions.secondPart
 
 class ColorItemViewHolder(private val binding: ColorBannerViewBinding) : RecyclerView.ViewHolder(binding.root) {
-
-    private fun getMiddlePosition(colors: List<Pair<String, Int>>?): Int {
-        return if (colors?.size?.mod(2) == 1) {
-            colors.size.div(2f).toInt()
-        } else {
-            -1
-        }
-    }
-
-    fun populate(list: List<Pair<String, Int>>?) {
+	fun populate(list: List<Pair<String, Int>>?) {
         binding.colorContainer.removeAllViews()
         val params = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1.0f)
         list?.forEachIndexed { index, pair ->
             val colorItemView = ColorItemViewBinding.inflate(LayoutInflater.from(itemView.context))
             colorItemView.root.layoutParams = params
-            // If the colour list size is even it won't have a middle position, so instead we will take the index that is half of the size.
-            val isMiddle = if (list.size % 2 == 0) list.size / 2 else getMiddlePosition(list)
+
+			// If the colour list size is even it won't have a middle position, so instead we will take the index that is half of the size.
+			val isMiddle = (list.size / 2) - (if (list.size % 2 == 0) 1 else 0)
             populateView(colorItemView, isMiddle == index, pair)
             binding.colorContainer.addView(colorItemView.root)
         }
@@ -36,24 +28,23 @@ class ColorItemViewHolder(private val binding: ColorBannerViewBinding) : Recycle
         val context = itemView.context
         colorItemView.apply {
             colorName.text = colorPair.first.secondPart()
+			colorName.isVisible = colorPair.first.secondPart() != colorPair.first
+
+			val backgroundColor = context.getColor(if (isMiddle) R.color.guidestyle_black else R.color.guidestyle_white)
+			val textColor = context.getColor(if (isMiddle) R.color.guidestyle_white else R.color.guidestyle_black)
+
+			headerTitle.setBackgroundColor(backgroundColor)
+			headerTitle.setTextColor(textColor)
+			colorName.setBackgroundColor(backgroundColor)
+			colorName.setTextColor(textColor)
 
             if (isMiddle) {
-                headerTitle.setBackgroundColor(ContextCompat.getColor(context, R.color.guidestyle_black))
-                headerTitle.setTextColor(ContextCompat.getColor(context, R.color.guidestyle_white))
-                colorName.setBackgroundColor(ContextCompat.getColor(context, R.color.guidestyle_black))
-                colorName.setTextColor(ContextCompat.getColor(context, R.color.guidestyle_white))
                 val name = colorPair.first.split("_")
-                if (name.size > 1) {
-                    headerTitle.text = name[0]
-                }
-            } else {
-                headerTitle.setBackgroundColor(ContextCompat.getColor(context, R.color.guidestyle_white))
-                headerTitle.setTextColor(ContextCompat.getColor(context, R.color.guidestyle_black))
-                colorName.setBackgroundColor(ContextCompat.getColor(context, R.color.guidestyle_white))
-                colorName.setTextColor(ContextCompat.getColor(context, R.color.guidestyle_black))
+				headerTitle.text = name[0]
             }
-            color.setBackgroundColor(ContextCompat.getColor(context, colorPair.second))
-            color.text = Integer.toHexString(ContextCompat.getColor(context, colorPair.second))
+
+			color.setBackgroundColor(colorPair.second)
+			color.text = Integer.toHexString(colorPair.second)
         }
     }
 }

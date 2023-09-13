@@ -33,10 +33,12 @@
 	<color name="grey_300">#AEB0BA</color>
 	<color name="grey_200">#DFE3EB</color>
 	<color name="grey_100">#F7FDFF</color>
-	<color name="light_grey_2">#F4F4F4</color>
 
-	<color name="success">#4F9C75</color>
-	<color name="success_variant">#ADE4C8</color>
-	<color name="error">#EF5567</color>
-	<color name="error_variant">#F1CBCF</color>
+	<color name="greylight">#F4F4F4</color>
+
+	<color name="success_main">#4F9C75</color>
+	<color name="success_secondary">#ADE4C8</color>
+
+	<color name="error_main">#EF5567</color>
+	<color name="error_secondary">#F1CBCF</color>
 </resources>

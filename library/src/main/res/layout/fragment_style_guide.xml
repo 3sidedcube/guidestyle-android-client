@@ -138,6 +138,28 @@
 					app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 			</com.cube.styleguide.views.ExpandableView>
 
+			<!--		Layout (Radius) RecyclerView-->
+			<com.cube.styleguide.views.ExpandableView
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:id="@+id/radius_container_view"
+				android:layout_marginTop="@dimen/guidestyle_largest_spacing"
+				android:orientation="vertical"
+				android:visibility="gone"
+				app:header="@string/guidestyle_radius"
+				tools:visibility="visible">
+
+				<androidx.recyclerview.widget.RecyclerView
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:id="@+id/radius_recycler_view"
+					android:layout_marginHorizontal="@dimen/guidestyle_large_spacing"
+					android:layout_marginVertical="@dimen/guidestyle_xlarge_spacing"
+					android:nestedScrollingEnabled="true"
+					app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+					app:spanCount="4" />
+			</com.cube.styleguide.views.ExpandableView>
+
 			<!--		Buttons List-->
 			<com.cube.styleguide.views.ExpandableView
 				android:layout_width="match_parent"

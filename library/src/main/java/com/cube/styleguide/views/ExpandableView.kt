@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.LinearLayout
+import androidx.core.content.ContextCompat
 import androidx.core.view.children
 import com.cube.styleguide.R
 import com.cube.styleguide.databinding.ExpandableViewBinding
@@ -31,9 +32,9 @@ class ExpandableView constructor(context: Context, attrs: AttributeSet? = null) 
 		binding.apply {
 			container.setOnClickListener {
 				val drawable = if (expanded) {
-					context.getDrawable(R.drawable.ic_chevron_down)
+					ContextCompat.getDrawable(context, R.drawable.ic_chevron_down)
 				} else {
-					context.getDrawable(R.drawable.ic_chevron_up)
+					ContextCompat.getDrawable(context, R.drawable.ic_chevron_up)
 				}
 				expanded = !expanded
 				updateViewsVisibility(expanded)

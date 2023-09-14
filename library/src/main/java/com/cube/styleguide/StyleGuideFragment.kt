@@ -13,11 +13,14 @@ import androidx.appcompat.widget.AppCompatRadioButton
 import androidx.appcompat.widget.SwitchCompat
 import androidx.core.view.isVisible
 import com.cube.styleguide.adapter.ColorAdapter
+import com.cube.styleguide.adapter.ShadowAdapter
 import com.cube.styleguide.adapter.SpacingAdapter
 import com.cube.styleguide.adapter.TextStylesAdapter
 import com.cube.styleguide.databinding.FragmentStyleGuideBinding
 import com.cube.styleguide.fragments.BottomSheetFragment
-import com.cube.styleguide.utils.Extensions.firstPart
+import com.cube.styleguide.stylehandlers.ColorsHandler
+import com.cube.styleguide.stylehandlers.ShadowsHandler
+import com.cube.styleguide.utils.Extensions.getPackageNameFlavorAdapted
 import com.cube.styleguide.utils.ShakeSensorListener
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.checkbox.MaterialCheckBox
@@ -35,7 +38,7 @@ open class StyleGuideFragment : BottomSheetFragment(R.layout.fragment_style_guid
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val packageName = getPackageName()
+        val packageName = requireContext().getPackageNameFlavorAdapted()
         if (packageName.isEmpty()) {
             binding?.apply {
                 nestedScrollView.visibility = View.GONE
@@ -44,36 +47,12 @@ open class StyleGuideFragment : BottomSheetFragment(R.layout.fragment_style_guid
             }
         } else {
 
-            populateColors(packageName)
+			populateColorsAndShadow()
 
             populateSpacings(packageName)
 
             populateStyles(packageName)
         }
-    }
-
-    /**
-     * Tries to recover the package name of the app.
-     * In case the app has multiple flavours but they do not have different res(colors,dimens, style) it will fall back on the main flavour (aka production flavour)
-     *
-     * @return package name or empty string
-     */
-    private fun getPackageName(): String {
-        val packageName = context?.packageName!!
-        try {
-            Class.forName("$packageName.R\$style").declaredFields
-        } catch (cne: ClassNotFoundException) {
-            return if (packageName.endsWith(".staging", true)) {
-                packageName.replace(".staging", "")
-            } else if (packageName.endsWith(".test", true)) {
-                packageName.replace(".test", "")
-            } else if (packageName.endsWith(".dev", true)) {
-                packageName.replace(".dev", "")
-            } else {
-                ""
-            }
-        }
-        return packageName
     }
 
     /**
@@ -359,33 +338,21 @@ open class StyleGuideFragment : BottomSheetFragment(R.layout.fragment_style_guid
         }
     }
 
-    private fun populateColors(packageName: String) {
-        val colorList: HashMap<String, List<Pair<String, Int>>> = hashMapOf()
-        val colors: Array<Field> = Class.forName("$packageName.R\$color").declaredFields
-        for (color in colors) {
-            val colorName: String = color.name
-            if (!colorName.startsWith("guidestyle", true)) {
-                val colorId: Int = color.getInt(null)
-                var list = colorList[colorName.firstPart()]
-                if (list != null) {
-                    list = list.plus(Pair(colorName, colorId))
-                    colorList[colorName.firstPart()] = list
-                } else {
-                    list = listOf()
-                    list = list.plus(Pair(colorName, colorId))
-                    colorList[colorName.firstPart()] = list
-                }
-            }
-        }
-        binding?.apply {
-            if (colorList.isEmpty()) {
-                colorContainerView.visibility = View.GONE
-            } else {
-                colorContainerView.visibility = View.VISIBLE
-                binding?.colorRecyclerView?.adapter = ColorAdapter(colorList)
-            }
-        }
-    }
+	private fun populateColorsAndShadow() {
+		binding?.apply {
+			val colorList = ColorsHandler.getColors(requireContext())
+			colorList?.let {
+				colorRecyclerView.adapter = ColorAdapter(it)
+			}
+
+			val shadowList = ShadowsHandler.getShadows(requireContext())
+			shadowList?.let {
+				shadowRecyclerView.adapter = ShadowAdapter(it)
+			}
+
+			colorContainerView.isVisible = !colorList.isNullOrEmpty() || !shadowList.isNullOrEmpty()
+		}
+	}
 
     /**
      * Override the onViewCreated and call this function in order to add you custom views

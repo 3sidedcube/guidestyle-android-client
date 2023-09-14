@@ -8,6 +8,9 @@ class MainActivity : AppCompatActivity() {
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_main)
-		StyleGuideFragment().show(supportFragmentManager, StyleGuideFragment::class.java.name)
+
+		val tag = StyleGuideFragment::class.java.name
+		val existingFragment = supportFragmentManager.findFragmentByTag(tag) != null
+		if (!existingFragment) StyleGuideFragment().show(supportFragmentManager, tag)
 	}
 }

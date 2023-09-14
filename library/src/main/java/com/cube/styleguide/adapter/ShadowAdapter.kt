@@ -8,7 +8,7 @@ import com.cube.styleguide.utils.Extensions.layoutInflater
 
 class ShadowAdapter(private val shadows: List<Pair<String, Float>>) : RecyclerView.Adapter<ShadowItemViewHolder>() {
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-		ShadowItemViewHolder(ShadowItemViewBinding.inflate(parent.context.layoutInflater, parent, false))
+		ShadowItemViewHolder(ShadowItemViewBinding.inflate(parent.layoutInflater, parent, false))
 
 	override fun getItemCount() = shadows.size
 

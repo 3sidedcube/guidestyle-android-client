@@ -17,4 +17,8 @@
 
 	<dimen name="elevation_light">5.5dp</dimen>
 	<dimen name="elevation_strong">10.2dp</dimen>
+
+	<dimen name="horizontal_spacing_8">8dp</dimen>
+	<dimen name="horizontal_spacing_16">16dp</dimen>
+	<dimen name="horizontal_spacing_24">24dp</dimen>
 </resources>

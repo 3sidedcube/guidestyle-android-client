@@ -13,13 +13,18 @@ import androidx.appcompat.widget.AppCompatRadioButton
 import androidx.appcompat.widget.SwitchCompat
 import androidx.core.view.isVisible
 import com.cube.styleguide.adapter.ColorAdapter
+import com.cube.styleguide.adapter.HorizontalSpacingAdapter
+import com.cube.styleguide.adapter.RadiusAdapter
 import com.cube.styleguide.adapter.ShadowAdapter
 import com.cube.styleguide.adapter.SpacingAdapter
 import com.cube.styleguide.adapter.TextStylesAdapter
 import com.cube.styleguide.databinding.FragmentStyleGuideBinding
 import com.cube.styleguide.fragments.BottomSheetFragment
 import com.cube.styleguide.stylehandlers.ColorsHandler
+import com.cube.styleguide.stylehandlers.HorizontalSpacingHandler
+import com.cube.styleguide.stylehandlers.RadiusHandler
 import com.cube.styleguide.stylehandlers.ShadowsHandler
+import com.cube.styleguide.stylehandlers.SpacingHandler
 import com.cube.styleguide.utils.Extensions.getPackageNameFlavorAdapted
 import com.cube.styleguide.utils.ShakeSensorListener
 import com.google.android.material.button.MaterialButton
@@ -49,7 +54,9 @@ open class StyleGuideFragment : BottomSheetFragment(R.layout.fragment_style_guid
 
 			populateColorsAndShadow()
 
-            populateSpacings(packageName)
+            populateSpacings()
+
+			populateRadius()
 
             populateStyles(packageName)
         }
@@ -320,23 +327,29 @@ open class StyleGuideFragment : BottomSheetFragment(R.layout.fragment_style_guid
         populateSwitchStyles(themes)
     }
 
-    private fun populateSpacings(packageName: String) {
-        var spacingsList = listOf<Pair<String, Int>>()
-        val dimens: Array<Field> = Class.forName("$packageName.R\$dimen").declaredFields
-        for (dimen in dimens) {
-            val dimenName: String = dimen.name
-            val dimenId: Int = dimen.getInt(null)
-            spacingsList = spacingsList.plus(Pair(dimenName, dimenId))
-        }
-        binding?.apply {
-            if (spacingsList.isEmpty()) {
-                layoutContainerView.visibility = View.GONE
-            } else {
-                layoutContainerView.visibility = View.VISIBLE
-                layoutRecyclerView.adapter = SpacingAdapter(spacingsList)
-            }
-        }
+    private fun populateSpacings() {
+		binding?.apply {
+			val spacingsList = SpacingHandler.getSpacings(requireContext())
+			spacingsList?.let {
+				layoutRecyclerView.adapter = SpacingAdapter(spacingsList)
+			}
+
+			val horizontalSpacingsList = HorizontalSpacingHandler.getHorizontalSpacings(requireContext())
+			horizontalSpacingsList?.let {
+				layoutRecyclerViewHorizontalSpacing.adapter = HorizontalSpacingAdapter(horizontalSpacingsList)
+			}
+
+			layoutContainerView.isVisible = !spacingsList.isNullOrEmpty() || !horizontalSpacingsList.isNullOrEmpty()
+		}
     }
+
+	private fun populateRadius() {
+		binding?.apply {
+			val radiusList = RadiusHandler.getRadius(requireContext())
+			radiusContainerView.isVisible = !radiusList.isNullOrEmpty()
+			radiusRecyclerView.adapter = RadiusAdapter(radiusList ?: return)
+		}
+	}
 
 	private fun populateColorsAndShadow() {
 		binding?.apply {

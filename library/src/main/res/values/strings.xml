@@ -6,6 +6,7 @@
 	<string name="guidestyle_colors">Colours &amp; Shadows</string>
 	<string name="guidestyle_text_styles">Text Styles</string>
 	<string name="guidestyle_layout">Layout</string>
+	<string name="guidestyle_radius">Corner Radius</string>
 	<string name="guidestyle_buttons">Buttons</string>
 	<string name="guidestyle_enabled">Enabled</string>
 	<string name="guidestyle_disabled">Disabled</string>

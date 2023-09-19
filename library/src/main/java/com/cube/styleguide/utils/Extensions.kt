@@ -2,6 +2,7 @@ package com.cube.styleguide.utils
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import com.cube.styleguide.R
 import java.util.Locale
@@ -55,6 +56,8 @@ object Extensions {
 	}
 
 	fun Context.getColor(colorId: Int) = ContextCompat.getColor(this, colorId)
+
+	val ViewGroup.layoutInflater get() = LayoutInflater.from(this.context)
 
 	val Context.layoutInflater get() = LayoutInflater.from(this)
 

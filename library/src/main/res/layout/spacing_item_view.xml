@@ -31,5 +31,5 @@
 		android:layout_height="wrap_content"
 		android:id="@+id/spacing_in_dp"
 		style="@style/GuideStyleBody"
-		tools:text="10 px" />
+		tools:text="10 dp" />
 </LinearLayout>

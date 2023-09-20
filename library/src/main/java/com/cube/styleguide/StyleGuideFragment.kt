@@ -23,6 +23,7 @@ import com.cube.styleguide.fragments.BottomSheetFragment
 import com.cube.styleguide.stylehandlers.ColorsHandler
 import com.cube.styleguide.stylehandlers.HorizontalSpacingHandler
 import com.cube.styleguide.stylehandlers.RadiusHandler
+import com.cube.styleguide.stylehandlers.ScrollEndHandler
 import com.cube.styleguide.stylehandlers.ShadowsHandler
 import com.cube.styleguide.stylehandlers.SpacingHandler
 import com.cube.styleguide.utils.Extensions.getPackageNameFlavorAdapted
@@ -57,6 +58,8 @@ open class StyleGuideFragment : BottomSheetFragment(R.layout.fragment_style_guid
             populateSpacings()
 
 			populateRadius()
+
+			populateScrollEnd()
 
             populateStyles(packageName)
         }
@@ -348,6 +351,18 @@ open class StyleGuideFragment : BottomSheetFragment(R.layout.fragment_style_guid
 			val radiusList = RadiusHandler.getRadius(requireContext())
 			radiusContainerView.isVisible = !radiusList.isNullOrEmpty()
 			radiusRecyclerView.adapter = RadiusAdapter(radiusList ?: return)
+		}
+	}
+
+	private fun populateScrollEnd() {
+		binding?.apply {
+			val scrollendsList = ScrollEndHandler.getScrollEnd(requireContext())
+			scrollEndView.isVisible = !scrollendsList.isNullOrEmpty()
+			scrollendsList ?: return
+			viewScrollend.headerTitle.text = getString(R.string.guidestyle_padding)
+			val size = scrollendsList[0].second
+			viewScrollend.spacingInDp.text = getString(R.string.guidestyle_dp_text, size)
+			viewScrollend.view.layoutParams.height = size
 		}
 	}
 

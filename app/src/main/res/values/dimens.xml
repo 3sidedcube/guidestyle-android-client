@@ -29,4 +29,6 @@
 	<dimen name="radius_primary_12">12dp</dimen>
 	<dimen name="radius_secondary_14">14dp</dimen>
 	<dimen name="radius_circle_30">30dp</dimen>
+
+	<dimen name="scrollend_spacing_40">40dp</dimen>
 </resources>

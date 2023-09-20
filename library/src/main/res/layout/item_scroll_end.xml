@@ -5,11 +5,7 @@
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
 	android:background="@drawable/spacing_item_bg"
-	android:gravity="center"
-	android:layout_margin="6dp"
-	android:layout_weight="1"
-	android:minHeight="120dp"
-	android:minWidth="75dp"
+	android:gravity="center_horizontal"
 	android:orientation="vertical">
 
 	<TextView
@@ -17,21 +13,22 @@
 		android:layout_height="wrap_content"
 		android:id="@+id/header_title"
 		style="@style/GuideStyleBody"
-		tools:text="100" />
-
-	<com.google.android.material.imageview.ShapeableImageView
-		android:layout_width="60dp"
-		android:layout_height="60dp"
-		android:id="@+id/view"
-		android:background="@color/guidestyle_pink"
-		android:layout_marginVertical="10dp"
-
-		 />
+		android:layout_marginTop="32dp"
+		tools:text="Padding" />
 
 	<TextView
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:id="@+id/spacing_in_dp"
 		style="@style/GuideStyleBody"
-		tools:text="10 dp" />
+		tools:ignore="PxUsage"
+		tools:text="40px" />
+
+	<View
+		android:layout_width="match_parent"
+		android:layout_height="40dp"
+		android:id="@+id/view"
+		android:background="@color/guidestyle_pink"
+		android:layout_gravity="bottom"
+		android:layout_marginTop="10dp" />
 </LinearLayout>

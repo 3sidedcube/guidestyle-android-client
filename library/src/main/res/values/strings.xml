@@ -1,12 +1,13 @@
 <resources>
 	<string name="app_name">Guide Style Library</string>
 	<string name="guidestyle_variant">Variant</string>
-	<string name="guidestyle_dp_text">%d px</string>
+	<string name="guidestyle_dp_text">%d dp</string>
 	<string name="guidestyle_by_3sidedcube">GuideStyle by 3SidedCube</string>
 	<string name="guidestyle_colors">Colours &amp; Shadows</string>
 	<string name="guidestyle_text_styles">Text Styles</string>
 	<string name="guidestyle_layout">Layout</string>
 	<string name="guidestyle_radius">Corner Radius</string>
+	<string name="guidestyle_end_of_scroll">End of scroll</string>
 	<string name="guidestyle_buttons">Buttons</string>
 	<string name="guidestyle_enabled">Enabled</string>
 	<string name="guidestyle_disabled">Disabled</string>
@@ -17,4 +18,5 @@
 	<string name="guidestyle_custom_views">Custom Views</string>
 	<string name="guidestyle_failed_to_load_the_package">Failed to load the package: %s</string>
 	<string name="guidestyle_switch">Switch Buttons</string>
+	<string name="guidestyle_padding">Padding</string>
 </resources>

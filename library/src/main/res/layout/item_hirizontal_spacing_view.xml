@@ -25,7 +25,7 @@
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent"
-		tools:text="Content Margin \n10 px" />
+		tools:text="Content Margin \n10 dp" />
 
 	<View
 		android:layout_width="16dp"

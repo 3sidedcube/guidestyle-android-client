@@ -160,6 +160,22 @@
 					app:spanCount="4" />
 			</com.cube.styleguide.views.ExpandableView>
 
+			<!--		Layout (Radius) RecyclerView-->
+			<com.cube.styleguide.views.ExpandableView
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:id="@+id/scroll_end_view"
+				android:layout_marginTop="@dimen/guidestyle_largest_spacing"
+				android:orientation="vertical"
+				android:visibility="gone"
+				app:header="@string/guidestyle_end_of_scroll"
+				tools:visibility="visible">
+
+				<include
+					android:id="@+id/view_scrollend"
+					layout="@layout/item_scroll_end" />
+			</com.cube.styleguide.views.ExpandableView>
+
 			<!--		Buttons List-->
 			<com.cube.styleguide.views.ExpandableView
 				android:layout_width="match_parent"

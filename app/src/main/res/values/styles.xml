@@ -1,43 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
 	<style name="Heading">
 		<item name="android:textColor">@color/grey_500</item>
+		<item name="android:textStyle">normal</item>
+	</style>
+
+	<style name="Heading.Bold" parent="Heading">
+		<item name="android:textStyle">bold</item>
 	</style>
 
 	<style name="Heading.1">
 		<item name="android:textSize">36sp</item>
 		<item name="lineHeight">40dp</item>
+		<item name="android:textStyle">normal</item>
+	</style>
+
+	<style name="Heading.1.Bold" parent="Heading.1">
+		<item name="android:textStyle">bold</item>
 	</style>
 
 	<style name="Heading.2">
 		<item name="android:textSize">28sp</item>
 		<item name="lineHeight">32dp</item>
+		<item name="android:textStyle">normal</item>
+	</style>
+
+	<style name="Heading.2.Bold" parent="Heading.2">
+		<item name="android:textStyle">bold</item>
 	</style>
 
 	<style name="Heading.3">
 		<item name="android:textSize">20sp</item>
 		<item name="lineHeight">28dp</item>
+		<item name="android:textStyle">normal</item>
+	</style>
+
+	<style name="Heading.3.Bold" parent="Heading.3">
+		<item name="android:textStyle">bold</item>
 	</style>
 
 	<style name="Heading.4">
 		<item name="android:textSize">24sp</item>
 		<item name="android:lineHeight">32dp</item>
+		<item name="android:textStyle">normal</item>
 	</style>
+
+	<style name="Heading.4.Bold" parent="Heading.4">
+		<item name="android:textStyle">bold</item>
+	</style>
+
 
 	<style name="Subtitle">
 		<item name="android:textColor">@color/grey_500</item>
+		<item name="android:textStyle">normal</item>
+	</style>
+
+	<style name="Subtitle.Bold" parent="Subtitle">
+		<item name="android:textStyle">bold</item>
 	</style>
 
 	<style name="Subtitle.1">
 		<item name="android:textSize">20sp</item>
 		<item name="android:letterSpacing">0.0125</item>
 		<item name="lineHeight">24dp</item>
+		<item name="android:textStyle">normal</item>
+	</style>
+
+	<style name="Subtitle.1.Bold" parent="Subtitle.1">
+		<item name="android:textStyle">bold</item>
 	</style>
 
 	<style name="Subtitle.2">
 		<item name="android:textSize">16sp</item>
 		<item name="android:letterSpacing">0.0125</item>
 		<item name="lineHeight">20dp</item>
+		<item name="android:textStyle">normal</item>
+	</style>
+
+	<style name="Subtitle.2.Bold" parent="Subtitle.2">
+		<item name="android:textStyle">bold</item>
 	</style>
 
 	<style name="Body">
@@ -45,5 +87,10 @@
 		<item name="android:textSize">14sp</item>
 		<item name="android:letterSpacing">0.02</item>
 		<item name="lineHeight">20dp</item>
+		<item name="android:textStyle">normal</item>
+	</style>
+
+	<style name="Body.Bold" parent="Body">
+		<item name="android:textStyle">bold</item>
 	</style>
 </resources>

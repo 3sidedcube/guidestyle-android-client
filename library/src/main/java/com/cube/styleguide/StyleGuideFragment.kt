@@ -26,6 +26,7 @@ import com.cube.styleguide.stylehandlers.RadiusHandler
 import com.cube.styleguide.stylehandlers.ScrollEndHandler
 import com.cube.styleguide.stylehandlers.ShadowsHandler
 import com.cube.styleguide.stylehandlers.SpacingHandler
+import com.cube.styleguide.stylehandlers.TextStylesHandler
 import com.cube.styleguide.utils.Extensions.getPackageNameFlavorAdapted
 import com.cube.styleguide.utils.ShakeSensorListener
 import com.google.android.material.button.MaterialButton
@@ -93,19 +94,11 @@ open class StyleGuideFragment : BottomSheetFragment(R.layout.fragment_style_guid
      * @param themes A list of styles these can be retrieved using Class.forName("$packageName.R\$style").declaredFields.
      * @param prefixesList A list of prefixes used in your styles, by default this is a list of commonly used prefixes.
      */
-    fun populateTextStyles(
-        themes: Array<Field>,
-        prefixesList: List<String> = listOf("Body", "Heading", "Caption", "Subtitle", "Bold", "Regular")
-    ) {
-        val textStylesList = mutableListOf<Pair<String, Int>>()
-
-        themes.forEach { theme ->
-            if (prefixesList.any { theme.name.startsWith(it) }) {
-                textStylesList.add(Pair(theme.name, theme.getInt(null)))
-            }
-        }
-
-        addViewsToRelevantSection("Text", textStylesList)
+    private fun populateTextStyles() {
+		binding?.apply {
+			textContainerView.isVisible = true
+			textRecyclerView.adapter = TextStylesAdapter(TextStylesHandler.getTextStyles(requireContext()) ?: return)
+		}
     }
 
     /**
@@ -216,13 +209,6 @@ open class StyleGuideFragment : BottomSheetFragment(R.layout.fragment_style_guid
                 }
             }
 
-            "Text" -> {
-                binding?.apply {
-                    textContainerView.isVisible = true
-                    textRecyclerView.adapter = TextStylesAdapter(stylesList)
-                }
-            }
-
             "Checkbox" -> {
                 binding?.apply {
                     checkboxContainerView.isVisible = true
@@ -324,7 +310,7 @@ open class StyleGuideFragment : BottomSheetFragment(R.layout.fragment_style_guid
     private fun populateStyles(packageName: String) {
         val themes: Array<Field> = Class.forName("$packageName.R\$style").declaredFields
         populateButtonStyles(themes)
-        populateTextStyles(themes)
+        populateTextStyles()
         populateCheckboxStyles(themes)
         populateRadioButtonStyles(themes)
         populateSwitchStyles(themes)

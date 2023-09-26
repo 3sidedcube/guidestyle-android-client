@@ -41,4 +41,6 @@
 
 	<color name="error_main">#EF5567</color>
 	<color name="error_secondary">#F1CBCF</color>
+
+	<color name="white">#FFFFFF</color>
 </resources>

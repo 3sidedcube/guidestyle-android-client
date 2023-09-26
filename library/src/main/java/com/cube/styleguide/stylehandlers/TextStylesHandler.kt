@@ -8,7 +8,7 @@ class TextStylesHandler {
 		private const val textSizeAttribute = android.R.attr.textSize
 		fun getTextStyles(
 			context: Context,
-			prefixesList: List<String> = listOf("Body", "Heading", "Caption", "Subtitle", "Bold", "Regular")
+			prefixesList: List<String>
 		) = Class.forName("${context.packageName}.R\$style").declaredFields.let { themes ->
 			themes.mapNotNull { theme ->
 				if (prefixesList.any { theme.name.startsWith(it) }) Pair(theme.name, theme.getInt(null)) else null

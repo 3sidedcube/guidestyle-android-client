@@ -8,6 +8,9 @@ import com.cube.styleguide.R
 import java.util.Locale
 
 object Extensions {
+
+	fun String.lastPart(divider: String) = split(divider).lastOrNull() ?: this
+
 	fun String.firstPart(): String {
 		val content = split("_")
 		return if (content.size > 1) {

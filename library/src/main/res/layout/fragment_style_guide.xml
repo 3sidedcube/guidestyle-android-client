@@ -367,14 +367,17 @@
 				android:orientation="vertical"
 				android:visibility="gone"
 				app:header="@string/guidestyle_custom_views"
-				tools:visibility="visible">
+				tools:visibility="visible"
+				android:clipChildren="false"
+				android:clipToPadding="false">
 
 				<LinearLayout
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:id="@+id/custom_views"
-					android:layout_marginHorizontal="@dimen/guidestyle_xlarge_spacing"
-					android:orientation="vertical">
+					android:orientation="vertical"
+					android:clipChildren="false"
+					android:clipToPadding="false">
 				</LinearLayout>
 			</com.cube.styleguide.views.ExpandableView>
 		</LinearLayout>
